@@ -1,0 +1,12 @@
+[user]
+	name = Daniel Farrell
+	email = dfarrell07@gmail.com
+[core]
+	editor = vim
+	autocrlf = input
+[color]
+	ui = true
+[alias]
+	logg = log --graph --oneline
+[help]
+	autocorrect = 1

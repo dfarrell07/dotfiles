@@ -1,0 +1,4 @@
+urxvt.font:             xft: Dejavu Sans Mono:autohint=true:antialias=true:size=10
+urxvt.background:       black
+urxvt.foreground:       white
+urxvt.scrollBar:        false
