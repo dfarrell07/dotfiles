@@ -43,7 +43,9 @@ channels = (
     autojoin = "yes";
   },
   { name = "#openstack-dev"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#openvswitch"; chatnet = "freenode"; autojoin = "yes"; }
+  { name = "#openvswitch"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#ncsulug"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#trilug"; chatnet = "freenode"; autojoin = "yes"; }
 );
 
 aliases = {
@@ -219,7 +221,9 @@ ignores = (
   { 
     level = "JOINS PARTS QUITS NICKS";
     channels = ( "#openvswitch" );
-  }
+  },
+  { level = "JOINS PARTS QUITS NICKS"; channels = ( "#ncsulug" ); },
+  { level = "JOINS PARTS QUITS NICKS"; channels = ( "#trilug" ); }
 );
 windows = {
   1 = { immortal = "yes"; name = "(status)"; level = "ALL"; };
@@ -243,16 +247,7 @@ windows = {
       }
     );
   };
-  4 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#devel";
-        tag = "RedHat";
-      }
-    );
-  };
+  4 = { };
   5 = {
     items = (
       {
@@ -273,26 +268,8 @@ windows = {
       }
     );
   };
-  7 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#rhos-dev";
-        tag = "RedHat";
-      }
-    );
-  };
-  8 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#rhos-users";
-        tag = "RedHat";
-      }
-    );
-  };
+  7 = { };
+  8 = { };
   9 = {
     items = (
       {
@@ -304,8 +281,28 @@ windows = {
     );
   };
   10 = { name = "hilight"; sticky = "yes"; };
+  11 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#ncsulug";
+        tag = "Freenode";
+      }
+    );
+  };
+  12 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#trilug";
+        tag = "Freenode";
+      }
+    );
+  };
 };
 mainwindows = {
-  9 = { first_line = "8"; lines = "56"; };
+  11 = { first_line = "8"; lines = "58"; };
   10 = { first_line = "1"; lines = "7"; };
 };
