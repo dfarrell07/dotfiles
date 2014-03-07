@@ -16,8 +16,6 @@ Setup a Linux system.
 
 OPTIONS:
     -h Show this message
-    -u Install packages for Ubuntu
-    -f Install packages for Fedora
     -c Clone configuration files
     -z Setup ZSH shell
     -t Setup tmux terminal multiplexer
@@ -27,22 +25,9 @@ OPTIONS:
     -s Setup SSH options
     -x Setup X options
     -r Apply some of this config to root
+    -f Install packages for Fedora
+    -u Install packages for Ubuntu
 EOF
-}
-
-fedora_packages()
-{
-    sudo yum update
-    sudo yum install git tmux wget vim-X11 vim python nmap irssi nload mtr i3 \
-                     i3status zsh irssi
-}
-
-ubuntu_packages()
-{
-    sudo apt-get update
-    sudo apt-get upgrade
-    sudo apt-get install vim-gtk ipython tmux nmap git nload tree p7zip-full \
-                         sshfs zsh irssi
 }
 
 clone_dotfiles()
@@ -115,20 +100,40 @@ setup_root()
     sudo ln -s $USER_HOME/.dotfiles/.tmux.conf $ROOT_HOME/.tmux.conf
 }
 
+add_chrome_repo()
+{
+    sudo bash -c "cat >/etc/yum.repos.d/google-chrome.repo <<EOL
+[google-chrome]
+name=google-chrome - 64-bit
+baseurl=http://dl.google.com/linux/chrome/rpm/stable/x86_64
+enabled=1
+gpgcheck=1
+gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub
+EOL"
+}
+
+fedora_packages()
+{
+    add_chrome_repo
+    sudo yum update
+    sudo yum install git tmux wget vim-X11 vim python nmap irssi nload mtr i3 \
+                     i3status zsh irssi google-chrome-stable
+}
+
+ubuntu_packages()
+{
+    sudo apt-get update
+    sudo apt-get upgrade
+    sudo apt-get install vim-gtk ipython tmux nmap git nload tree p7zip-full \
+                         sshfs zsh irssi
+}
+
 while getopts ":hufcztivgsxr" opt; do
     case "$opt" in
         h)
             # Help message
             usage
             exit $EX_OK
-            ;;
-        u)
-            # Install packages for Ubuntu
-            ubuntu_packages
-            ;;
-        f)
-            # Install packages for Fedora
-            fedora_packages
             ;;
         c)
             # Clone configuration files
@@ -166,7 +171,15 @@ while getopts ":hufcztivgsxr" opt; do
             # Apply some of this config to the root user
             setup_root
             ;;
-        ?)
+        f)
+            # Install packages for Fedora
+            fedora_packages
+            ;;
+        u)
+            # Install packages for Ubuntu
+            ubuntu_packages
+            ;;
+        *)
             usage
             exit $EX_USAGEA
     esac
