@@ -43,3 +43,11 @@ set autochdir
 
 " Allows for clipboard sharing between vim and host (TODO doesn't seem to work on all systems)
 set clipboard=unnamedplus
+
+" F5 shows a list of all open buffers, which can be selected from easily
+map <F5> :buffers<CR>:buffer<Space>
+
+" Configure tabs to show number, file name and + if edited
+" Switch to a given tab with 4gt, for tab 4
+"set guitablabel=\[%N\]\ %t\ %M
+set guitablabel=%t

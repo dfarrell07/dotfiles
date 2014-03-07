@@ -33,7 +33,9 @@ alias -s py=python
 
 hash -d dl=~/Downloads
 hash -d bot=~/robot/current/bot
+hash -d 517=~/CSC517
 hash -d proj=~/CSC517/csc517p1/backchannel
+hash -d ex=~/CSC517/expertiza
 
 zstyle ':completion:*' users-hosts root@192.168.7.2 daniel@10.0.0.2 ssh drfarrel@152.46.19.104 drfarrel@remote.eos.ncsu.edu
 

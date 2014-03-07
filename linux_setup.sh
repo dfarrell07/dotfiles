@@ -105,10 +105,14 @@ setup_x()
 setup_root()
 {
     # TODO: Setup ZSH for root
-    # Create symlinks to give root similar config
-    ln -s $USER_HOME/.dotfiles/.vimrc $ROOT_HOME/.vimrc
-    ln -s $USER_HOME/.dotfiles/.gitconfig $ROOT_HOME/.gitconfig
-    ln -s $USER_HOME/.dotfiles/.tmux.conf $ROOT_HOME/.tmux.conf
+    sudo ln -s $USER_HOME/.dotfiles/.zshrc $ROOT_HOME/.zshrc
+    sudo ln -s $USER_HOME/.oh-my-zsh $ROOT_HOME/.oh-my-zsh
+    sudo chsh -s /bin/zsh
+
+    # Create additional symlinks to give root similar config
+    sudo ln -s $USER_HOME/.dotfiles/.vimrc $ROOT_HOME/.vimrc
+    sudo ln -s $USER_HOME/.dotfiles/.gitconfig $ROOT_HOME/.gitconfig
+    sudo ln -s $USER_HOME/.dotfiles/.tmux.conf $ROOT_HOME/.tmux.conf
 }
 
 while getopts ":hufcztivgsxr" opt; do
