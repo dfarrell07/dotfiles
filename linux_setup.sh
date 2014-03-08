@@ -122,7 +122,7 @@ fedora_packages()
 {
     add_chrome_repo
     sudo yum update
-    sudo yum install git tmux wget vim-X11 vim python nmap irssi nload mtr i3 \
+    sudo yum install git tmux wget vim-X11 vim ipython nmap irssi nload mtr i3 \
                      i3status zsh irssi google-chrome-stable scrot \
                      network-manager-applet
 }
