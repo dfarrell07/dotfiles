@@ -24,6 +24,7 @@ OPTIONS:
     -g Setup git version control
     -s Setup SSH options
     -x Setup X options
+    -3 Setup i3 config
     -r Apply some of this config to root
     -f Install packages for Fedora
     -u Install packages for Ubuntu
@@ -53,7 +54,7 @@ setup_irssi()
 {
     AUTORUN_DIR=$USER_HOME/.irssi/scripts/autorun
     mkdir -p $AUTORUN_DIR
-    ln -s $USER_HOME/.dotfiles/config $USER_HOME/.irssi/config
+    ln -s $USER_HOME/.dotfiles/irssi_config $USER_HOME/.irssi/config
     wget http://irssi.org/themefiles/xchat.theme -P $USER_HOME/.irssi
     wget http://static.quadpoint.org/irssi/hilightwin.pl -P $AUTORUN_DIR
     wget http://dave.waxman.org/irssi/xchatnickcolor.pl -P $AUTORUN_DIR
@@ -87,6 +88,11 @@ setup_x()
     ln -s $USER_HOME/.dotfiles/.Xdefaults $USER_HOME/.Xdefaults
 }
 
+setup_i3()
+{
+    ln -s $USER_HOME/.dotfiles/i3_config $USER_HOME/.i3/config
+}
+
 setup_root()
 {
     # TODO: Setup ZSH for root
@@ -117,7 +123,8 @@ fedora_packages()
     add_chrome_repo
     sudo yum update
     sudo yum install git tmux wget vim-X11 vim python nmap irssi nload mtr i3 \
-                     i3status zsh irssi google-chrome-stable scrot
+                     i3status zsh irssi google-chrome-stable scrot \
+                     network-manager-applet
 }
 
 ubuntu_packages()
@@ -128,7 +135,7 @@ ubuntu_packages()
                          sshfs zsh irssi
 }
 
-while getopts ":hufcztivgsxr" opt; do
+while getopts ":hcztivgsx3rfu" opt; do
     case "$opt" in
         h)
             # Help message
@@ -166,6 +173,10 @@ while getopts ":hufcztivgsxr" opt; do
         x)
             # Setup X settings
             setup_x
+            ;;
+        3)
+            # Setup i3 config
+            setup_i3
             ;;
         r)
             # Apply some of this config to the root user
