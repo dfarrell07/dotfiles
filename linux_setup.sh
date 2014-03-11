@@ -75,12 +75,7 @@ setup_git()
 
 setup_ssh()
 {
-    # FIXME: Permissions aren't set correctly
-    mkdir -p $USER_HOME/.ssh
-    if [ ! -f $USER_HOME/.ssh/config ]
-    then
-        echo "VisualHostKey=yes" >> $USER_HOME/.ssh/config
-    fi
+    ln -s $USER_HOME/.dotfiles/ssh_config $USER_HOME/.ssh/config
 }
 
 setup_x()

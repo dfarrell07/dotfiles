@@ -1,0 +1,16 @@
+VisualHostKey=yes
+
+Host gh
+    Hostname github.com
+    User git
+    IdentityFile /home/daniel/.ssh/id_rsa_nopass
+
+Host bot
+    Hostname 10.2.1.1
+    User root
+    IdentityFile /home/daniel/.ssh/id_rsa_nopass
+
+Host bb
+    Hostname 192.168.7.2
+    User root
+    IdentityFile /home/daniel/.ssh/id_rsa_nopass
