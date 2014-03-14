@@ -10,3 +10,5 @@
 	logg = log --graph --oneline
 [help]
 	autocorrect = 1
+[diff]
+    tool = meld

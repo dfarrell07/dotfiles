@@ -127,7 +127,7 @@ ubuntu_packages()
     sudo apt-get update
     sudo apt-get upgrade
     sudo apt-get install vim-gtk ipython tmux nmap git nload tree p7zip-full \
-                         sshfs zsh irssi
+                         sshfs zsh irssi meld
 }
 
 while getopts ":hcztivgsx3rfu" opt; do
