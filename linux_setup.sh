@@ -75,6 +75,10 @@ setup_git()
 
 setup_ssh()
 {
+    if [ ! -d $USER_HOME/.ssh ]
+    then
+        mkdir $USER_HOME/.ssh
+    fi
     ln -s $USER_HOME/.dotfiles/ssh_config $USER_HOME/.ssh/config
 }
 
