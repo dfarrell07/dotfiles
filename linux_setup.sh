@@ -80,6 +80,7 @@ setup_ssh()
         mkdir $USER_HOME/.ssh
     fi
     ln -s $USER_HOME/.dotfiles/ssh_config $USER_HOME/.ssh/config
+    chmod 600 ./ssh_config
 }
 
 setup_x()
