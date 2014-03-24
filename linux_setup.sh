@@ -124,7 +124,7 @@ fedora_packages()
     sudo yum update
     sudo yum install git tmux wget vim-X11 vim ipython nmap irssi nload mtr i3 \
                      i3status zsh irssi google-chrome-stable scrot \
-                     network-manager-applet
+                     network-manager-applet xbacklight
 }
 
 ubuntu_packages()
