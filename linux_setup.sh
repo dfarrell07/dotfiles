@@ -80,7 +80,10 @@ setup_ssh()
         mkdir $USER_HOME/.ssh
     fi
     ln -s $USER_HOME/.dotfiles/ssh_config $USER_HOME/.ssh/config
-    chmod 600 ./ssh_config
+    ln -s $USER_HOME/.dotfiles/id_rsa_nopass.pub $USER_HOME/.ssh/id_rsa_nopass.pub
+    openssl aes-256-cbc -d -in id_rsa_nopass.enc -out id_rsa_nopass
+    ln -s $USER_HOME/.dotfiles/id_rsa_nopass $USER_HOME/.ssh/id_rsa_nopass
+    chmod 600 ./ssh_config ./id_rsa_nopass.pub ./id_rsa_nopass
 }
 
 setup_x()
