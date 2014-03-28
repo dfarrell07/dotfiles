@@ -121,13 +121,19 @@ gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub
 EOL"
 }
 
+add_vlc_repo()
+{
+su -c 'yum localinstall --nogpgcheck http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm'
+}
+
 fedora_packages()
 {
     add_chrome_repo
+    add_vlc_repo
     sudo yum update
     sudo yum install git tmux wget vim-X11 vim ipython nmap irssi nload mtr i3 \
                      i3status zsh irssi google-chrome-stable scrot \
-                     network-manager-applet xbacklight
+                     network-manager-applet xbacklight vlc
 }
 
 ubuntu_packages()
