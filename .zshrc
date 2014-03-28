@@ -22,6 +22,8 @@ source $ZSH/oh-my-zsh.sh
 
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 export EDITOR='vim'
+export WORKON_HOME="$HOME/.virtualenvs"
+source $HOME/bin/virtualenvwrapper_bashrc
 
 alias -g ...='../..'
 alias -g ....='../../..'
