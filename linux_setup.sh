@@ -134,7 +134,7 @@ fedora_packages()
     sudo yum install git tmux wget vim-X11 vim ipython nmap irssi nload mtr i3 \
                      i3status zsh irssi google-chrome-stable scrot \
                      network-manager-applet xbacklight vlc python-virtualenv \
-                     python-pip
+                     python-pip openssl-devel zlib-devel
     sudo pip install virtualenvwrapper
 }
 
