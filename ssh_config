@@ -14,3 +14,12 @@ Host bb
     Hostname 192.168.7.2
     User root
     IdentityFile /home/daniel/.ssh/id_rsa_nopass
+
+Host eos
+    Hostname remote.eos.ncsu.edu
+    User drfarrel
+
+Host server
+    Hostname 10.0.0.2
+    User daniel
+    Port 60377
