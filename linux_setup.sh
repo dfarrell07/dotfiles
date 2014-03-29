@@ -36,6 +36,13 @@ clone_dotfiles()
     git clone https://github.com/dfarrell07/dotfiles.git $USER_HOME/.dotfiles
 }
 
+reconfigure_dotfile_remote()
+{
+    git --work-tree=$USER_HOME/.dotfiles remote rm origin
+    git --work-tree=$USER_HOME/.dotfiles remote add origin \
+        gh:dfarrell07/dotfiles.git
+}
+
 setup_zsh()
 {
     # See https://github.com/robbyrussell/oh-my-zsh
@@ -87,6 +94,7 @@ setup_ssh()
     chmod 600  $USER_HOME/.dotfiles/ssh_config \
                $USER_HOME/.dotfiles/id_rsa_nopass.pub \
                $USER_HOME/.dotfiles/id_rsa_nopass
+    reconfigure_dotfile_remote
 }
 
 setup_x()
