@@ -81,9 +81,12 @@ setup_ssh()
     fi
     ln -s $USER_HOME/.dotfiles/ssh_config $USER_HOME/.ssh/config
     ln -s $USER_HOME/.dotfiles/id_rsa_nopass.pub $USER_HOME/.ssh/id_rsa_nopass.pub
-    openssl aes-256-cbc -d -in id_rsa_nopass.enc -out id_rsa_nopass
+    openssl aes-256-cbc -d -in $USER_HOME/.dotfiles/id_rsa_nopass.enc \
+        -out $USER_HOME/.dotfiles/id_rsa_nopass
     ln -s $USER_HOME/.dotfiles/id_rsa_nopass $USER_HOME/.ssh/id_rsa_nopass
-    chmod 600 ./ssh_config ./id_rsa_nopass.pub ./id_rsa_nopass
+    chmod 600  $USER_HOME/.dotfiles/ssh_config \
+               $USER_HOME/.dotfiles/id_rsa_nopass.pub \
+               $USER_HOME/.dotfiles/id_rsa_nopass
 }
 
 setup_x()
@@ -93,6 +96,10 @@ setup_x()
 
 setup_i3()
 {
+    if [ ! -d $USER_HOME/.i3 ]
+    then
+        mkdir $USER_HOME/.i3
+    fi
     ln -s $USER_HOME/.dotfiles/i3_config $USER_HOME/.i3/config
 }
 
