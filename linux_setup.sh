@@ -159,7 +159,9 @@ ubuntu_packages()
     sudo apt-get update
     sudo apt-get upgrade
     sudo apt-get install vim-gtk ipython tmux nmap git nload tree p7zip-full \
-                         sshfs zsh irssi meld
+                         sshfs zsh irssi meld python-virtualenv python-pip vlc \
+                         i3 chromium-browser
+    sudo pip install virtualenvwrapper
 }
 
 while getopts ":hcztivgsx3rfu" opt; do
