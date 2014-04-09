@@ -150,7 +150,7 @@ fedora_packages()
                      i3status zsh irssi google-chrome-stable scrot \
                      network-manager-applet xbacklight vlc python-virtualenv \
                      python-pip openssl-devel zlib-devel ncurses-devel \
-                     readline-devel
+                     readline-devel transmission
     sudo pip install virtualenvwrapper
 }
 
