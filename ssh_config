@@ -23,3 +23,8 @@ Host server
     Hostname 10.0.0.2
     User daniel
     Port 60377
+
+Host rh-dev
+    Hostname 10.3.14.158
+    User fedora
+    IdentityFile /home/daniel/.ssh/id_rsa_nopass
