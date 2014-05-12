@@ -25,6 +25,11 @@ Host server
     Port 60377
 
 Host rh-dev
-    Hostname 10.3.14.158
+    Hostname 10.3.14.156
     User fedora
     IdentityFile /home/daniel/.ssh/id_rsa_nopass
+
+Host mini
+    Hostname 192.168.56.1
+    User mininet
+    Port 3022
