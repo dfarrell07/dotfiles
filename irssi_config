@@ -31,6 +31,7 @@ channels = (
   { name = "#opendaylight"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#opendaylight-integration"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#opendaylight-ovsdb"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#opendaylight-meeting"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#openstack-neutron"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#openstack-dev"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#openvswitch"; chatnet = "freenode"; autojoin = "yes"; },
@@ -194,6 +195,7 @@ settings = {
 ignores = (
   { level = "JOINS PARTS QUITS NICKS"; channels = ( "#opendaylight" ); },
   { level = "JOINS PARTS QUITS NICKS"; channels = ( "#opendaylight-ovsdb" ); },
+  { level = "JOINS PARTS QUITS NICKS"; channels = ( "#opendaylight-meeting" ); },
   { level = "JOINS PARTS QUITS NICKS"; channels = ( "#opendaylight-integration" ); },
   { level = "JOINS PARTS QUITS NICKS"; channels = ( "#devel" ); },
   { level = "JOINS PARTS QUITS NICKS"; channels = ( "#openstack-dev" ); },
@@ -221,7 +223,7 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#opendaylight-integration";
+        name = "#opendaylight-ovsdb";
         tag = "Freenode";
       }
     );
@@ -231,7 +233,7 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#opendaylight-ovsdb";
+        name = "#opendaylight-integration";
         tag = "Freenode";
       }
     );
@@ -241,7 +243,7 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#openstack-neutron";
+        name = "#opendaylight-meeting";
         tag = "Freenode";
       }
     );
@@ -251,7 +253,7 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#openstack-dev";
+        name = "#openstack-neutron";
         tag = "Freenode";
       }
     );
@@ -261,12 +263,21 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
+        name = "#openstack-dev";
+        tag = "Freenode";
+      }
+    );
+  };
+  8 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
         name = "#openvswitch";
         tag = "Freenode";
       }
     );
   };
-  8 = { };
   9 = { };
   10 = { name = "hilight"; sticky = "yes"; };
   11 = {
