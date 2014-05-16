@@ -221,6 +221,6 @@ while getopts ":hcztivgsx3rfu" opt; do
             ;;
         *)
             usage
-            exit $EX_USAGEA
+            exit $EX_USAGE
     esac
 done
