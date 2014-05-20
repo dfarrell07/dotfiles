@@ -38,3 +38,13 @@ Host mini
     Hostname 192.168.56.1
     User mininet
     Port 3022
+
+Host fresh_fedora
+    Hostname 209.132.178.45
+    User fedora
+    IdentityFile /home/daniel/.ssh/id_rsa_nopass
+
+Host fresh_centos
+    Hostname 209.132.178.87
+    User cloud-user
+    IdentityFile /home/daniel/.ssh/id_rsa_nopass
