@@ -145,8 +145,8 @@ fedora_packages()
 {
     add_chrome_repo
     add_vlc_repo
-    sudo yum update
-    sudo yum install git tmux wget vim-X11 vim ipython nmap nload mtr i3 \
+    sudo yum update -y
+    sudo yum install -y git tmux wget vim-X11 vim ipython nmap nload mtr i3 \
                      i3status zsh irssi google-chrome-stable scrot \
                      network-manager-applet xbacklight vlc python-virtualenv \
                      python-pip openssl-devel zlib-devel ncurses-devel \
