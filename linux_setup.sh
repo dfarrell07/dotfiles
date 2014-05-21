@@ -50,7 +50,7 @@ setup_zsh()
 {
     # Grab ZSH config, symlink it to proper path, change shell to ZSH
     # See https://github.com/robbyrussell/oh-my-zsh
-    git clone git://github.com/robbyrussell/oh-my-zsh.git $USER_HOME/.oh-my-zsh
+    git clone https://github.com/dfarrell07/oh-my-zsh $USER_HOME/.oh-my-zsh
     ln -s $USER_HOME/.dotfiles/.zshrc $USER_HOME/.zshrc
     # Set ZSH as my default shell. Requires reboot to take effect.
     chsh -s /bin/zsh
