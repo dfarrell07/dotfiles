@@ -19,7 +19,9 @@ OPTIONS:
     -h Show this message
     -c Clone configuration files
     -z Setup ZSH shell
+    -Z Install and setup ZSH shell
     -t Setup tmux terminal multiplexer
+    -T Install and setup tmux
     -i Setup irssi IRC client
     -v Setup vim editor
     -g Setup git version control
@@ -52,14 +54,32 @@ setup_zsh()
     # See https://github.com/robbyrussell/oh-my-zsh
     git clone https://github.com/dfarrell07/oh-my-zsh $USER_HOME/.oh-my-zsh
     ln -s $USER_HOME/.dotfiles/.zshrc $USER_HOME/.zshrc
-    # Set ZSH as my default shell. Requires reboot to take effect.
+    # Set ZSH as my default shell. Requires reboot to take effect?
     chsh -s /bin/zsh
+}
+
+install_zsh()
+{
+    # Stand-alone function for installing/setting up only zsh
+    # Usecase: dev boxes that you want mostly fresh, but need zsh
+    sudo yum install -y zsh
+    clone_dotfiles
+    setup_zsh
 }
 
 setup_tmux()
 {
     # Symlink tmux config to proper path
     ln -s $USER_HOME/.dotfiles/.tmux.conf $USER_HOME/.tmux.conf
+}
+
+install_tmux()
+{
+    # Stand-alone function for installing/setting up only tmux
+    # Usecase: dev boxes that you want mostly fresh, but need tmux
+    sudo yum install -y tmux
+    clone_dotfiles
+    setup_tmux
 }
 
 setup_irssi()
@@ -180,7 +200,7 @@ ubuntu_packages()
     sudo pip install virtualenvwrapper
 }
 
-while getopts ":hcztivgsx3rfu" opt; do
+while getopts ":hczZtTivgsx3rfu" opt; do
     case "$opt" in
         h)
             # Help message
@@ -195,9 +215,17 @@ while getopts ":hcztivgsx3rfu" opt; do
             # Setup ZSH shell
             setup_zsh
             ;;
+        Z)
+            # Install and setup ZSH shell
+            install_zsh
+            ;;
         t)
             # Setup tmux terminal multiplexer
             setup_tmux
+            ;;
+        T)
+            # Install and setup tmux terminal multiplexer
+            install_tmux
             ;;
         i)
             # Setup irssi IRC client
