@@ -3,8 +3,6 @@
 EX_USAGE=64
 EX_OK=0
 
-# Change this if your username isn't "daniel"
-USER_HOME="/home/daniel"
 ROOT_HOME="/root"
 
 usage()
@@ -38,14 +36,14 @@ EOF
 clone_dotfiles()
 {
     # Grab repo of Linux configuration files
-    git clone https://github.com/dfarrell07/dotfiles.git $USER_HOME/.dotfiles
+    git clone https://github.com/dfarrell07/dotfiles.git $HOME/.dotfiles
 }
 
 reconfigure_dotfile_remote()
 {
     # Makes git commands in dotfile repo use system-wide SSH config
-    git --work-tree=$USER_HOME/.dotfiles remote rm origin
-    git --work-tree=$USER_HOME/.dotfiles remote add origin \
+    git --work-tree=$HOME/.dotfiles remote rm origin
+    git --work-tree=$HOME/.dotfiles remote add origin \
         gh:dfarrell07/dotfiles.git
 }
 
@@ -53,8 +51,8 @@ setup_zsh()
 {
     # Grab ZSH config, symlink it to proper path, change shell to ZSH
     # See https://github.com/robbyrussell/oh-my-zsh
-    git clone https://github.com/dfarrell07/oh-my-zsh $USER_HOME/.oh-my-zsh
-    ln -s $USER_HOME/.dotfiles/.zshrc $USER_HOME/.zshrc
+    git clone https://github.com/dfarrell07/oh-my-zsh $HOME/.oh-my-zsh
+    ln -s $HOME/.dotfiles/.zshrc $HOME/.zshrc
     # Set ZSH as my default shell. Requires reboot to take effect?
     chsh -s /bin/zsh
 }
@@ -71,7 +69,7 @@ install_zsh()
 setup_tmux()
 {
     # Symlink tmux config to proper path
-    ln -s $USER_HOME/.dotfiles/.tmux.conf $USER_HOME/.tmux.conf
+    ln -s $HOME/.dotfiles/.tmux.conf $HOME/.tmux.conf
 }
 
 install_tmux()
@@ -86,10 +84,10 @@ install_tmux()
 setup_irssi()
 {
     # Grab irssi themes/plugins, drop in proper path, symlink config
-    AUTORUN_DIR=$USER_HOME/.irssi/scripts/autorun
+    AUTORUN_DIR=$HOME/.irssi/scripts/autorun
     mkdir -p $AUTORUN_DIR
-    ln -s $USER_HOME/.dotfiles/irssi_config $USER_HOME/.irssi/config
-    wget http://irssi.org/themefiles/xchat.theme -P $USER_HOME/.irssi
+    ln -s $HOME/.dotfiles/irssi_config $HOME/.irssi/config
+    wget http://irssi.org/themefiles/xchat.theme -P $HOME/.irssi
     wget http://static.quadpoint.org/irssi/hilightwin.pl -P $AUTORUN_DIR
     wget http://dave.waxman.org/irssi/xchatnickcolor.pl -P $AUTORUN_DIR
 }
@@ -100,7 +98,7 @@ setup_vim()
     # Note that when using vim, to get at the system clipboard,
     # you'll need to use `gvim -v`. The vim package isn't compiled
     # with X support. This only applies to Fedora.
-    ln -s $USER_HOME/.dotfiles/.vimrc $USER_HOME/.vimrc
+    ln -s $HOME/.dotfiles/.vimrc $HOME/.vimrc
 }
 
 install_vim()
@@ -115,55 +113,55 @@ install_vim()
 setup_git()
 {
     # Symlink git config to proper path
-    ln -s $USER_HOME/.dotfiles/.gitconfig $USER_HOME/.gitconfig
+    ln -s $HOME/.dotfiles/.gitconfig $HOME/.gitconfig
 }
 
 setup_ssh()
 {
     # Symlink SSH config, decrypt priv key, set restrictive permissions
-    if [ ! -d $USER_HOME/.ssh ]
+    if [ ! -d $HOME/.ssh ]
     then
-        mkdir $USER_HOME/.ssh
+        mkdir $HOME/.ssh
     fi
-    ln -s $USER_HOME/.dotfiles/ssh_config $USER_HOME/.ssh/config
-    ln -s $USER_HOME/.dotfiles/id_rsa_nopass.pub $USER_HOME/.ssh/id_rsa_nopass.pub
-    openssl aes-256-cbc -d -in $USER_HOME/.dotfiles/id_rsa_nopass.enc \
-        -out $USER_HOME/.dotfiles/id_rsa_nopass
-    ln -s $USER_HOME/.dotfiles/id_rsa_nopass $USER_HOME/.ssh/id_rsa_nopass
-    chmod 600  $USER_HOME/.dotfiles/ssh_config \
-               $USER_HOME/.dotfiles/id_rsa_nopass.pub \
-               $USER_HOME/.dotfiles/id_rsa_nopass
+    ln -s $HOME/.dotfiles/ssh_config $HOME/.ssh/config
+    ln -s $HOME/.dotfiles/id_rsa_nopass.pub $HOME/.ssh/id_rsa_nopass.pub
+    openssl aes-256-cbc -d -in $HOME/.dotfiles/id_rsa_nopass.enc \
+        -out $HOME/.dotfiles/id_rsa_nopass
+    ln -s $HOME/.dotfiles/id_rsa_nopass $HOME/.ssh/id_rsa_nopass
+    chmod 600  $HOME/.dotfiles/ssh_config \
+               $HOME/.dotfiles/id_rsa_nopass.pub \
+               $HOME/.dotfiles/id_rsa_nopass
     reconfigure_dotfile_remote
 }
 
 setup_x()
 {
     # Symlink X config to proper path
-    ln -s $USER_HOME/.dotfiles/.Xdefaults $USER_HOME/.Xdefaults
+    ln -s $HOME/.dotfiles/.Xdefaults $HOME/.Xdefaults
 }
 
 setup_i3()
 {
     # Symlink i3 WM config to proper path
-    if [ ! -d $USER_HOME/.i3 ]
+    if [ ! -d $HOME/.i3 ]
     then
-        mkdir $USER_HOME/.i3
+        mkdir $HOME/.i3
     fi
-    ln -s $USER_HOME/.dotfiles/i3_config $USER_HOME/.i3/config
+    ln -s $HOME/.dotfiles/i3_config $HOME/.i3/config
 }
 
 setup_root()
 {
     # Apply ZSH, vim, git and tmux config to root
     # TODO: Give root a different ZSH prompt
-    sudo ln -s $USER_HOME/.dotfiles/.zshrc $ROOT_HOME/.zshrc
-    sudo ln -s $USER_HOME/.oh-my-zsh $ROOT_HOME/.oh-my-zsh
+    sudo ln -s $HOME/.dotfiles/.zshrc $ROOT_HOME/.zshrc
+    sudo ln -s $HOME/.oh-my-zsh $ROOT_HOME/.oh-my-zsh
     sudo chsh -s /bin/zsh
 
     # Create additional symlinks to give root similar config
-    sudo ln -s $USER_HOME/.dotfiles/.vimrc $ROOT_HOME/.vimrc
-    sudo ln -s $USER_HOME/.dotfiles/.gitconfig $ROOT_HOME/.gitconfig
-    sudo ln -s $USER_HOME/.dotfiles/.tmux.conf $ROOT_HOME/.tmux.conf
+    sudo ln -s $HOME/.dotfiles/.vimrc $ROOT_HOME/.vimrc
+    sudo ln -s $HOME/.dotfiles/.gitconfig $ROOT_HOME/.gitconfig
+    sudo ln -s $HOME/.dotfiles/.tmux.conf $ROOT_HOME/.tmux.conf
 }
 
 add_chrome_repo()
