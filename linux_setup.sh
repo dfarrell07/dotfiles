@@ -24,6 +24,7 @@ OPTIONS:
     -T Install and setup tmux
     -i Setup irssi IRC client
     -v Setup vim editor
+    -V Install and setup vim editor
     -g Setup git version control
     -s Setup SSH options
     -x Setup X options
@@ -100,6 +101,15 @@ setup_vim()
     # you'll need to use `gvim -v`. The vim package isn't compiled
     # with X support. This only applies to Fedora.
     ln -s $USER_HOME/.dotfiles/.vimrc $USER_HOME/.vimrc
+}
+
+install_vim()
+{
+    # Stand-alone function for installing/setting up only vim
+    # Usecase: dev boxes that you want mostly fresh, but need vim
+    sudo yum install -y vim-X11 vim
+    clone_dotfiles
+    setup_vim
 }
 
 setup_git()
@@ -200,7 +210,7 @@ ubuntu_packages()
     sudo pip install virtualenvwrapper
 }
 
-while getopts ":hczZtTivgsx3rfu" opt; do
+while getopts ":hczZtTivVgsx3rfu" opt; do
     case "$opt" in
         h)
             # Help message
@@ -234,6 +244,10 @@ while getopts ":hczZtTivgsx3rfu" opt; do
         v)
             # Setup vim editor
             setup_vim
+            ;;
+        V)
+            # Install and setup vim editor
+            install_vim
             ;;
         g)
             # Setup Git version control
