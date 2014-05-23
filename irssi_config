@@ -18,12 +18,7 @@ servers = (
 );
 
 chatnets = {
-  Freenode = {
-    type = "IRC";
-    max_kicks = "1";
-    max_msgs = "4";
-    max_whois = "1";
-  };
+  Freenode = { type = "IRC"; };
   RedHat = { type = "IRC"; };
 };
 
@@ -42,36 +37,6 @@ channels = (
   { name = "#rhos-users"; chatnet = "RedHat"; autojoin = "yes"; },
   { name = "#devel"; chatnet = "RedHat"; autojoin = "yes"; },
 );
-
-aliases = {
-  WQUERY = "query -window";
-  DESCRIBE = "action";
-  HOST = "userhost";
-  LAST = "lastlog";
-  WI = "whois";
-  WII = "whois $0 $0";
-  WW = "whowas";
-  T = "topic";
-  KB = "kickban";
-  KN = "knockout";
-  UNIG = "unignore";
-  SB = "scrollback";
-  UMODE = "mode $N";
-  WC = "window close";
-  WN = "window new hide";
-  GOTO = "sb goto";
-  CHAT = "dcc chat";
-  RUN = "SCRIPT LOAD";
-  CALC = "exec - if command -v bc >/dev/null 2>&1\\; then printf '%s=' '$*'\\; echo '$*' | bc -l\\; else echo bc was not found\\; fi";
-  SBAR = "STATUSBAR";
-  INVITELIST = "mode $C +I";
-  Q = "QUERY";
-  "MANUAL-WINDOWS" = "set use_status_window off;set autocreate_windows off;set autocreate_query_level none;set autoclose_windows off;set reuse_unused_windows on;save";
-  EXEMPTLIST = "mode $C +e";
-  ATAG = "WINDOW SERVER";
-  UNSET = "set -clear";
-  RESET = "set -default";
-};
 
 statusbar = {
   # formats:
@@ -184,6 +149,7 @@ statusbar = {
     };
   };
 };
+
 settings = {
   core = {
     real_name = "Daniel Farrell";
@@ -193,6 +159,7 @@ settings = {
   "fe-text" = { actlist_sort = "refnum"; };
   "fe-common/core" = { theme = "xchat"; };
 };
+
 ignores = (
   { level = "JOINS PARTS QUITS NICKS"; channels = ( "#opendaylight" ); },
   { level = "JOINS PARTS QUITS NICKS"; channels = ( "#opendaylight-ovsdb" ); },
@@ -208,6 +175,7 @@ ignores = (
   { level = "JOINS PARTS QUITS NICKS"; channels = ( "#interns2014" ); },
   { level = "JOINS PARTS QUITS NICKS"; channels = ( "#trilug" ); }
 );
+
 windows = {
   1 = { immortal = "yes"; name = "(status)"; level = "ALL"; };
   2 = {
@@ -343,6 +311,7 @@ windows = {
     );
   };
 };
+
 mainwindows = {
   11 = { first_line = "8"; lines = "58"; };
   10 = { first_line = "1"; lines = "7"; };
