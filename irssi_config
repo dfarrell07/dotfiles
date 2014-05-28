@@ -31,6 +31,7 @@ channels = (
   { name = "#openstack-dev"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#openvswitch"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#interns2014"; chatnet = "RedHat"; autojoin = "yes"; },
+  { name = "#raleighpromo"; chatnet = "RedHat"; autojoin = "yes"; },
   { name = "#ncsulug"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#trilug"; chatnet = "freenode"; autojoin = "yes"; }
   { name = "#rhos-dev"; chatnet = "RedHat"; autojoin = "yes"; },
@@ -173,6 +174,7 @@ ignores = (
   { level = "JOINS PARTS QUITS NICKS"; channels = ( "#openvswitch" ); },
   { level = "JOINS PARTS QUITS NICKS"; channels = ( "#ncsulug" ); },
   { level = "JOINS PARTS QUITS NICKS"; channels = ( "#interns2014" ); },
+  { level = "JOINS PARTS QUITS NICKS"; channels = ( "#raleighpromo" ); },
   { level = "JOINS PARTS QUITS NICKS"; channels = ( "#trilug" ); }
 );
 
@@ -265,8 +267,8 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#ncsulug";
-        tag = "Freenode";
+        name = "#raleighpromo";
+        tag = "RedHat";
       }
     );
   };
@@ -275,7 +277,7 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#trilug";
+        name = "#ncsulug";
         tag = "Freenode";
       }
     );
@@ -285,12 +287,22 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
+        name = "#trilug";
+        tag = "Freenode";
+      }
+    );
+  };
+  15 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
         name = "#rhos-dev";
         tag = "RedHat";
       }
     );
   };
-  15 = {
+  16 = {
     items = (
       {
         type = "CHANNEL";
@@ -300,7 +312,7 @@ windows = {
       }
     );
   };
-  16 = {
+  17 = {
     items = (
       {
         type = "CHANNEL";
