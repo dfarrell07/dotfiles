@@ -29,11 +29,6 @@ Host rh-dev
     User fedora
     IdentityFile /home/daniel/.ssh/id_rsa_nopass
 
-Host cbench
-    Hostname 209.132.178.46
-    User fedora
-    IdentityFile /home/daniel/.ssh/id_rsa_nopass
-
 Host mini
     Hostname 192.168.56.1
     User mininet
@@ -44,7 +39,7 @@ Host fresh_fedora
     User fedora
     IdentityFile /home/daniel/.ssh/id_rsa_nopass
 
-Host fresh_centos
-    Hostname 209.132.178.87
-    User cloud-user
+Host fresh_fedora2
+    Hostname 209.132.178.116
+    User fedora
     IdentityFile /home/daniel/.ssh/id_rsa_nopass
