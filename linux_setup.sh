@@ -61,7 +61,7 @@ install_zsh()
 {
     # Stand-alone function for installing/setting up only zsh
     # Usecase: dev boxes that you want mostly fresh, but need zsh
-    sudo yum install -y zsh
+    sudo yum install -y zsh git
     clone_dotfiles
     setup_zsh
 }
@@ -76,7 +76,7 @@ install_tmux()
 {
     # Stand-alone function for installing/setting up only tmux
     # Usecase: dev boxes that you want mostly fresh, but need tmux
-    sudo yum install -y tmux
+    sudo yum install -y tmux git
     clone_dotfiles
     setup_tmux
 }
@@ -105,7 +105,7 @@ install_vim()
 {
     # Stand-alone function for installing/setting up only vim
     # Usecase: dev boxes that you want mostly fresh, but need vim
-    sudo yum install -y vim-X11 vim
+    sudo yum install -y vim-X11 vim git
     clone_dotfiles
     setup_vim
 }
