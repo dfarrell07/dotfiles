@@ -24,22 +24,12 @@ Host server
     User daniel
     Port 60377
 
-Host rh-dev
-    Hostname 10.3.14.156
-    User fedora
-    IdentityFile /home/daniel/.ssh/id_rsa_nopass
-
 Host mini
     Hostname 192.168.56.1
     User mininet
     Port 3022
 
-Host fresh_fedora
-    Hostname 209.132.178.45
-    User fedora
-    IdentityFile /home/daniel/.ssh/id_rsa_nopass
-
-Host fresh_fedora2
-    Hostname 209.132.178.116
+Host fedora
+    Hostname 209.132.178.136
     User fedora
     IdentityFile /home/daniel/.ssh/id_rsa_nopass
