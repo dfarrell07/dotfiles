@@ -114,6 +114,7 @@ setup_git()
 {
     # Symlink git config to proper path
     ln -s $HOME/.dotfiles/.gitconfig $HOME/.gitconfig
+    ln -s $HOME/.dotfiles/global_git_ignore $HOME/.gitignore
 }
 
 setup_ssh()

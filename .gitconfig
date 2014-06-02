@@ -1,9 +1,10 @@
 [user]
 	name = Daniel Farrell
-	email = dfarrell07@gmail.com
+	email = dfarrell@redhat.com
 [core]
 	editor = vim
 	autocrlf = input
+	excludesfiles = /home/daniel/.gitignore
 [color]
 	ui = true
 [alias]
