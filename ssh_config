@@ -33,3 +33,13 @@ Host fedora
     Hostname 209.132.178.136
     User fedora
     IdentityFile /home/daniel/.ssh/id_rsa_nopass
+
+Host fedora2
+    Hostname 209.132.178.138
+    User fedora
+    IdentityFile /home/daniel/.ssh/id_rsa_nopass
+
+Host fedora3
+    Hostname 209.132.178.139
+    User fedora
+    IdentityFile /home/daniel/.ssh/id_rsa_nopass
