@@ -30,11 +30,11 @@ Host mini
     Port 3022
 
 Host 1124-1
-    Hostname 172.18.14.10
+    Hostname 209.132.178.145
     User fedora
     IdentityFile /home/daniel/.ssh/id_rsa_nopass
 
 Host 1124-2
-    Hostname 172.18.14.12
+    Hostname 209.132.178.149
     User fedora
     IdentityFile /home/daniel/.ssh/id_rsa_nopass
