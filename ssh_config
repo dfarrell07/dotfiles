@@ -29,17 +29,12 @@ Host mini
     User mininet
     Port 3022
 
-Host fedora
-    Hostname 209.132.178.136
+Host 1124-1
+    Hostname 172.18.14.10
     User fedora
     IdentityFile /home/daniel/.ssh/id_rsa_nopass
 
-Host fedora2
-    Hostname 209.132.178.138
-    User fedora
-    IdentityFile /home/daniel/.ssh/id_rsa_nopass
-
-Host fedora3
-    Hostname 209.132.178.139
+Host 1124-2
+    Hostname 172.18.14.12
     User fedora
     IdentityFile /home/daniel/.ssh/id_rsa_nopass
