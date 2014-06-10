@@ -16,13 +16,10 @@ Setup a Linux system.
 OPTIONS:
     -h Show this message
     -c Clone configuration files
-    -z Setup ZSH shell
-    -Z Install and setup ZSH shell
-    -t Setup tmux terminal multiplexer
-    -T Install and setup tmux
+    -z Install and setup ZSH shell
+    -t Install and setup tmux
     -i Setup irssi IRC client
-    -v Setup vim editor
-    -V Install and setup vim editor
+    -v Install and setup vim editor
     -g Setup git version control
     -s Setup SSH options
     -x Setup X options
@@ -36,7 +33,13 @@ EOF
 clone_dotfiles()
 {
     # Grab repo of Linux configuration files
-    git clone https://github.com/dfarrell07/dotfiles.git $HOME/.dotfiles
+    if ! command -v git &> /dev/null; then
+        sudo yum install -y git
+    fi
+    if [ ! -d $HOME/.dotfiles ]
+    then
+        git clone https://github.com/dfarrell07/dotfiles.git $HOME/.dotfiles
+    fi
 }
 
 reconfigure_dotfile_remote()
@@ -47,38 +50,51 @@ reconfigure_dotfile_remote()
         gh:dfarrell07/dotfiles.git
 }
 
-setup_zsh()
-{
-    # Grab ZSH config, symlink it to proper path, change shell to ZSH
-    # See https://github.com/robbyrussell/oh-my-zsh
-    git clone https://github.com/dfarrell07/oh-my-zsh $HOME/.oh-my-zsh
-    ln -s $HOME/.dotfiles/.zshrc $HOME/.zshrc
-    # Set ZSH as my default shell. Requires reboot to take effect?
-    chsh -s /bin/zsh
-}
-
 install_zsh()
 {
-    # Stand-alone function for installing/setting up only zsh
+    # Install and configure ZSH. Can be used stand-alone.
     # Usecase: dev boxes that you want mostly fresh, but need zsh
-    sudo yum install -y zsh git
-    clone_dotfiles
-    setup_zsh
-}
+    if ! command -v zsh &> /dev/null; then
+        sudo yum install -y zsh
+    fi
 
-setup_tmux()
-{
-    # Symlink tmux config to proper path
-    ln -s $HOME/.dotfiles/.tmux.conf $HOME/.tmux.conf
+    # Symlink my ZSH config to proper path
+    clone_dotfiles
+    ln -s $HOME/.dotfiles/.zshrc $HOME/.zshrc
+
+    # Grab general ZSH config via oh-my-zsh project
+    # See https://github.com/robbyrussell/oh-my-zsh
+    git clone https://github.com/dfarrell07/oh-my-zsh $HOME/.oh-my-zsh
+
+    # Set ZSH as my default shell
+    chsh -s /bin/zsh
 }
 
 install_tmux()
 {
     # Stand-alone function for installing/setting up only tmux
     # Usecase: dev boxes that you want mostly fresh, but need tmux
-    sudo yum install -y tmux git
+    if ! command -v tmux &> /dev/null; then
+        sudo yum install -y tmux
+    fi
     clone_dotfiles
-    setup_tmux
+    # Symlink tmux config to proper path
+    ln -s $HOME/.dotfiles/.tmux.conf $HOME/.tmux.conf
+}
+
+install_vim()
+{
+    # Stand-alone function for installing/setting up only vim
+    # Usecase: dev boxes that you want mostly fresh, but need vim
+    # Note that when using vim, to get at the system clipboard,
+    # you'll need to use `gvim -v`. The vim package isn't compiled
+    # with X support. This only applies to Fedora.
+    if ! command -v vim &> /dev/null; then
+        sudo yum install -y vim-X11 vim
+    fi
+    clone_dotfiles
+    # Symlink vim config to proper path
+    ln -s $HOME/.dotfiles/.vimrc $HOME/.vimrc
 }
 
 setup_irssi()
@@ -90,24 +106,6 @@ setup_irssi()
     wget http://irssi.org/themefiles/xchat.theme -P $HOME/.irssi
     wget http://static.quadpoint.org/irssi/hilightwin.pl -P $AUTORUN_DIR
     wget http://dave.waxman.org/irssi/xchatnickcolor.pl -P $AUTORUN_DIR
-}
-
-setup_vim()
-{
-    # Symlink vim config to proper path
-    # Note that when using vim, to get at the system clipboard,
-    # you'll need to use `gvim -v`. The vim package isn't compiled
-    # with X support. This only applies to Fedora.
-    ln -s $HOME/.dotfiles/.vimrc $HOME/.vimrc
-}
-
-install_vim()
-{
-    # Stand-alone function for installing/setting up only vim
-    # Usecase: dev boxes that you want mostly fresh, but need vim
-    sudo yum install -y vim-X11 vim git
-    clone_dotfiles
-    setup_vim
 }
 
 setup_git()
@@ -214,7 +212,7 @@ if [ $# -eq 0 ]; then
     exit $EX_USAGE
 fi
 
-while getopts ":hczZtTivVgsx3rfu" opt; do
+while getopts ":hcztivgsx3rfu" opt; do
     case "$opt" in
         h)
             # Help message
@@ -226,18 +224,10 @@ while getopts ":hczZtTivVgsx3rfu" opt; do
             clone_dotfiles
             ;;
         z)
-            # Setup ZSH shell
-            setup_zsh
-            ;;
-        Z)
             # Install and setup ZSH shell
             install_zsh
             ;;
         t)
-            # Setup tmux terminal multiplexer
-            setup_tmux
-            ;;
-        T)
             # Install and setup tmux terminal multiplexer
             install_tmux
             ;;
@@ -246,10 +236,6 @@ while getopts ":hczZtTivVgsx3rfu" opt; do
             setup_irssi
             ;;
         v)
-            # Setup vim editor
-            setup_vim
-            ;;
-        V)
             # Install and setup vim editor
             install_vim
             ;;
