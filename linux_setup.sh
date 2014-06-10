@@ -208,6 +208,12 @@ ubuntu_packages()
     sudo pip install virtualenvwrapper
 }
 
+# If executed with no options
+if [ $# -eq 0 ]; then
+    usage
+    exit $EX_USAGE
+fi
+
 while getopts ":hczZtTivVgsx3rfu" opt; do
     case "$opt" in
         h)
