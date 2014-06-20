@@ -29,17 +29,22 @@ Host mini
     User mininet
     Port 3022
 
-Host bug1
-    Hostname 209.132.178.145
+Host cbenchl
+    Hostname 209.132.178.163
     User fedora
     IdentityFile /home/daniel/.ssh/id_rsa_nopass
 
-Host bug2
-    Hostname 209.132.178.149
+Host cbenchs
+    Hostname 209.132.178.162
     User fedora
     IdentityFile /home/daniel/.ssh/id_rsa_nopass
 
-Host cbench
-    Hostname 209.132.178.160
+Host cbenchc
+    Hostname 209.132.178.170
+    User fedora
+    IdentityFile /home/daniel/.ssh/id_rsa_nopass
+
+Host cbenchd
+    Hostname 209.132.178.93
     User fedora
     IdentityFile /home/daniel/.ssh/id_rsa_nopass
