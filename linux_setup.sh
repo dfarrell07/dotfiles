@@ -8,7 +8,7 @@ ROOT_HOME="/root"
 usage()
 {
     # Print usage message
-cat << EOF
+    cat << EOF
 Usage $0 [options]
 
 Setup a Linux system.
@@ -40,14 +40,18 @@ clone_dotfiles()
     then
         git clone https://github.com/dfarrell07/dotfiles.git $HOME/.dotfiles
     fi
+    sed -i "s/\/home\/daniel/\/home\/$USER/g" $HOME/.dotfiles/ssh_config
 }
 
 reconfigure_dotfile_remote()
 {
     # Makes git commands in dotfile repo use system-wide SSH config
+    old_cwd=$PWD
+    cd $HOME/.dotfiles
     git --work-tree=$HOME/.dotfiles remote rm origin
     git --work-tree=$HOME/.dotfiles remote add origin \
         gh:dfarrell07/dotfiles.git
+    cd $old_cwd
 }
 
 install_zsh()
@@ -95,6 +99,17 @@ install_vim()
     clone_dotfiles
     # Symlink vim config to proper path
     ln -s $HOME/.dotfiles/.vimrc $HOME/.vimrc
+
+    # Setup Vundle
+    if [ ! -d $HOME/.vim ]
+    then
+        mkdir $HOME/.vim
+    fi
+    if [ ! -d $HOME/.vim/bundle/Vundle.vim ]
+    then
+        git clone https://github.com/gmarik/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
+    fi
+    vim +PluginInstall +qall
 }
 
 setup_irssi()
@@ -102,6 +117,7 @@ setup_irssi()
     # Grab irssi themes/plugins, drop in proper path, symlink config
     AUTORUN_DIR=$HOME/.irssi/scripts/autorun
     mkdir -p $AUTORUN_DIR
+    clone_dotfiles
     ln -s $HOME/.dotfiles/irssi_config $HOME/.irssi/config
     wget http://irssi.org/themefiles/xchat.theme -P $HOME/.irssi
     wget http://static.quadpoint.org/irssi/hilightwin.pl -P $AUTORUN_DIR
@@ -111,30 +127,60 @@ setup_irssi()
 setup_git()
 {
     # Symlink git config to proper path
+    clone_dotfiles
     ln -s $HOME/.dotfiles/.gitconfig $HOME/.gitconfig
 }
 
 setup_ssh()
 {
-    # Symlink SSH config, decrypt priv key, set restrictive permissions
-    if [ ! -d $HOME/.ssh ]
-    then
+    # Grab SSH config, decrypt priv key, symlink to proper locations, set perms
+    # Grab our config file repo
+    clone_dotfiles
+
+    # Install OpenSSL for decrypting priv key
+    if ! command -v openssl &> /dev/null; then
+        sudo yum install -y openssl-devel openssl
+    fi
+    
+    # Decrypt private key
+    if [ ! -f $HOME/.dotfiles/id_rsa_nopass ]; then
+        openssl aes-256-cbc -d -in $HOME/.dotfiles/id_rsa_nopass.enc \
+            -out $HOME/.dotfiles/id_rsa_nopass
+    fi
+
+    # Make ssh dir if it doesn't exist
+    if [ ! -d $HOME/.ssh ]; then
         mkdir $HOME/.ssh
     fi
-    ln -s $HOME/.dotfiles/ssh_config $HOME/.ssh/config
-    ln -s $HOME/.dotfiles/id_rsa_nopass.pub $HOME/.ssh/id_rsa_nopass.pub
-    openssl aes-256-cbc -d -in $HOME/.dotfiles/id_rsa_nopass.enc \
-        -out $HOME/.dotfiles/id_rsa_nopass
-    ln -s $HOME/.dotfiles/id_rsa_nopass $HOME/.ssh/id_rsa_nopass
+
+    # Symlink config files to their proper location
+    if [ ! -f $HOME/.ssh/config ]; then
+        ln -s $HOME/.dotfiles/ssh_config $HOME/.ssh/config
+    fi
+    if [ ! -f $HOME/.ssh/id_rsa_nopass.pub ]; then
+        ln -s $HOME/.dotfiles/id_rsa_nopass.pub $HOME/.ssh/id_rsa_nopass.pub
+    fi
+    if [ ! -f $HOME/.ssh/id_rsa_nopass ]; then
+        ln -s $HOME/.dotfiles/id_rsa_nopass $HOME/.ssh/id_rsa_nopass
+    fi
+
+    # Set permissions required by SSH
+    echo "Setting SSH config file permissions"
     chmod 600  $HOME/.dotfiles/ssh_config \
                $HOME/.dotfiles/id_rsa_nopass.pub \
-               $HOME/.dotfiles/id_rsa_nopass
+               $HOME/.dotfiles/id_rsa_nopass \
+               $HOME/.ssh/config \
+               $HOME/.ssh/id_rsa_nopass.pub \
+               $HOME/.ssh/id_rsa_nopass
+
+    # Now that we have SSH configured, set dotfile repo to use .ssh/config
     reconfigure_dotfile_remote
 }
 
 setup_x()
 {
     # Symlink X config to proper path
+    clone_dotfiles
     ln -s $HOME/.dotfiles/.Xdefaults $HOME/.Xdefaults
 }
 
@@ -145,6 +191,7 @@ setup_i3()
     then
         mkdir $HOME/.i3
     fi
+    clone_dotfiles
     ln -s $HOME/.dotfiles/i3_config $HOME/.i3/config
 }
 
@@ -152,6 +199,7 @@ setup_root()
 {
     # Apply ZSH, vim, git and tmux config to root
     # TODO: Give root a different ZSH prompt
+    clone_dotfiles
     sudo ln -s $HOME/.dotfiles/.zshrc $ROOT_HOME/.zshrc
     sudo ln -s $HOME/.oh-my-zsh $ROOT_HOME/.oh-my-zsh
     sudo chsh -s /bin/zsh
