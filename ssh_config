@@ -30,17 +30,17 @@ Host mini
     Port 3022
 
 Host cbenchl
-    Hostname 209.132.178.163
+    Hostname 209.132.178.216
     User fedora
     IdentityFile /home/daniel/.ssh/id_rsa_nopass
 
 Host cbenchs
-    Hostname 209.132.178.162
+    Hostname 209.132.178.215
     User fedora
     IdentityFile /home/daniel/.ssh/id_rsa_nopass
 
 Host cbenchc
-    Hostname 209.132.178.170
+    Hostname 209.132.178.214
     User fedora
     IdentityFile /home/daniel/.ssh/id_rsa_nopass
 
