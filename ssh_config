@@ -45,6 +45,21 @@ Host cbenchc
     IdentityFile /home/daniel/.ssh/id_rsa_nopass
 
 Host cbenchd
-    Hostname 209.132.178.93
+    Hostname 209.132.178.217
+    User fedora
+    IdentityFile /home/daniel/.ssh/id_rsa_nopass
+
+Host cbenchb
+    Hostname 209.132.178.162
+    User cloud-user
+    IdentityFile /home/daniel/.ssh/id_rsa_nopass
+
+Host cbenchll
+    Hostname 209.132.178.221
+    User fedora
+    IdentityFile /home/daniel/.ssh/id_rsa_nopass
+
+Host cbenchlll
+    Hostname 209.132.178.222
     User fedora
     IdentityFile /home/daniel/.ssh/id_rsa_nopass
