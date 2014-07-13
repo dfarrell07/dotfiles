@@ -144,6 +144,7 @@ setup_ssh()
     
     # Decrypt private key
     if [ ! -f $HOME/.dotfiles/id_rsa_nopass ]; then
+        # TODO: Look at exit status, loop until success
         openssl aes-256-cbc -d -in $HOME/.dotfiles/id_rsa_nopass.enc \
             -out $HOME/.dotfiles/id_rsa_nopass
     fi
