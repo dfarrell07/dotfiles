@@ -241,7 +241,7 @@ fedora_packages()
                      network-manager-applet xbacklight vlc python-virtualenv \
                      python-pip openssl-devel zlib-devel ncurses-devel \
                      readline-devel transmission
-    sudo pip install virtualenvwrapper
+    sudo pip install virtualenvwrapper tox
 }
 
 ubuntu_packages()
