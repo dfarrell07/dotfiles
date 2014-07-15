@@ -71,7 +71,7 @@ install_zsh()
     git clone https://github.com/dfarrell07/oh-my-zsh $HOME/.oh-my-zsh
 
     # Set ZSH as my default shell
-    chsh -s /bin/zsh
+    chsh -s `command -v zsh`
 }
 
 install_tmux()
@@ -210,7 +210,7 @@ setup_root()
     clone_dotfiles
     sudo ln -s $HOME/.dotfiles/.zshrc $ROOT_HOME/.zshrc
     sudo ln -s $HOME/.oh-my-zsh $ROOT_HOME/.oh-my-zsh
-    sudo chsh -s /bin/zsh
+    sudo chsh -s `command -v zsh`
 
     # Create additional symlinks to give root similar config
     sudo ln -s $HOME/.dotfiles/.vimrc $ROOT_HOME/.vimrc
@@ -247,7 +247,7 @@ fedora_packages()
                      i3status zsh google-chrome-stable scrot irssi \
                      network-manager-applet xbacklight vlc python-virtualenv \
                      python-pip openssl openssl-devel zlib-devel ncurses-devel \
-                     readline-devel transmission
+                     readline-devel transmission linphone
     sudo pip install virtualenvwrapper tox
 }
 
