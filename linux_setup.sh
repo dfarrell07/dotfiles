@@ -94,26 +94,22 @@ install_vim()
     # you'll need to use `gvim -v`. The vim package isn't compiled
     # with X support. This only applies to Fedora.
     if ! command -v vim &> /dev/null; then
+        sudo yum update vim-minimal
         sudo yum install -y vim-X11 vim
     fi
     clone_dotfiles
     # Symlink vim config to proper path
     ln -s $HOME/.dotfiles/.vimrc $HOME/.vimrc
-
-    # Setup Vundle
-    if [ ! -d $HOME/.vim ]
-    then
-        mkdir $HOME/.vim
-    fi
-    if [ ! -d $HOME/.vim/bundle/Vundle.vim ]
-    then
-        git clone https://github.com/gmarik/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
-    fi
-    vim +PluginInstall +qall
 }
 
-setup_irssi()
+install_irssi()
 {
+    if ! command -v irssi &> /dev/null; then
+        sudo yum install -y irssi 
+    fi
+    if ! command -v wget &> /dev/null; then
+        sudo yum install -y wget
+    fi
     # Grab irssi themes/plugins, drop in proper path, symlink config
     AUTORUN_DIR=$HOME/.irssi/scripts/autorun
     mkdir -p $AUTORUN_DIR
@@ -124,14 +120,15 @@ setup_irssi()
     wget http://dave.waxman.org/irssi/xchatnickcolor.pl -P $AUTORUN_DIR
 }
 
-setup_git()
+install_git()
 {
     # Symlink git config to proper path
+    # The clone_dotfiles fn installs git if it isn't installed already
     clone_dotfiles
     ln -s $HOME/.dotfiles/.gitconfig $HOME/.gitconfig
 }
 
-setup_ssh()
+install_ssh()
 {
     # Grab SSH config, decrypt priv key, symlink to proper locations, set perms
     # Grab our config file repo
@@ -139,7 +136,10 @@ setup_ssh()
 
     # Install OpenSSL for decrypting priv key
     if ! command -v openssl &> /dev/null; then
-        sudo yum install -y openssl-devel openssl
+        sudo yum install -y openssl
+    fi
+    if ! command -v openssl-devel &> /dev/null; then
+        sudo yum install -y openssl-devel
     fi
     
     # Decrypt private key
@@ -185,8 +185,15 @@ setup_x()
     ln -s $HOME/.dotfiles/.Xdefaults $HOME/.Xdefaults
 }
 
-setup_i3()
+install_i3()
 {
+    if ! command -v i3 &> /dev/null; then
+        sudo yum install -y i3
+    fi
+    if ! command -v i3status &> /dev/null; then
+        sudo yum install -y i3status
+    fi
+    
     # Symlink i3 WM config to proper path
     if [ ! -d $HOME/.i3 ]
     then
@@ -211,7 +218,13 @@ setup_root()
     sudo ln -s $HOME/.dotfiles/.tmux.conf $ROOT_HOME/.tmux.conf
 }
 
-add_chrome_repo()
+add_vlc_repo()
+{
+    # Add VLC repo to yum's sources
+    su -c 'yum localinstall --nogpgcheck http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm'
+}
+
+install_chrome()
 {
     # Add Google Chrome repo to yum's sources
     sudo bash -c "cat >/etc/yum.repos.d/google-chrome.repo <<EOL
@@ -222,24 +235,18 @@ enabled=1
 gpgcheck=1
 gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub
 EOL"
-}
-
-add_vlc_repo()
-{
-    # Add VLC repo to yum's sources
-    su -c 'yum localinstall --nogpgcheck http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm'
+    sudo yum install -y google-chrome-stable
 }
 
 fedora_packages()
 {
     # Install the packages I find helpful for Fedora
-    add_chrome_repo
     add_vlc_repo
     sudo yum update -y
     sudo yum install -y git tmux wget vim-X11 vim ipython nmap nload mtr i3 \
-                     i3status zsh irssi google-chrome-stable scrot \
+                     i3status zsh google-chrome-stable scrot irssi \
                      network-manager-applet xbacklight vlc python-virtualenv \
-                     python-pip openssl-devel zlib-devel ncurses-devel \
+                     python-pip openssl openssl-devel zlib-devel ncurses-devel \
                      readline-devel transmission
     sudo pip install virtualenvwrapper tox
 }
@@ -250,7 +257,7 @@ ubuntu_packages()
     sudo apt-get update
     sudo apt-get upgrade
     sudo apt-get install vim-gtk ipython tmux nmap git nload tree p7zip-full \
-                         sshfs zsh irssi meld python-virtualenv python-pip vlc \
+                         sshfs zsh meld python-virtualenv python-pip vlc \
                          i3 chromium-browser
     sudo pip install virtualenvwrapper
 }
@@ -261,7 +268,7 @@ if [ $# -eq 0 ]; then
     exit $EX_USAGE
 fi
 
-while getopts ":hcztivgsx3rfu" opt; do
+while getopts ":hcCztivgsx3rfu" opt; do
     case "$opt" in
         h)
             # Help message
@@ -272,6 +279,10 @@ while getopts ":hcztivgsx3rfu" opt; do
             # Clone configuration files
             clone_dotfiles
             ;;
+        C)
+            # Install Google Chrome
+            install_chrome
+            ;;
         z)
             # Install and setup ZSH shell
             install_zsh
@@ -281,8 +292,8 @@ while getopts ":hcztivgsx3rfu" opt; do
             install_tmux
             ;;
         i)
-            # Setup irssi IRC client
-            setup_irssi
+            # Install and setup irssi IRC client
+            install_irssi
             ;;
         v)
             # Install and setup vim editor
@@ -290,11 +301,11 @@ while getopts ":hcztivgsx3rfu" opt; do
             ;;
         g)
             # Setup Git version control
-            setup_git
+            install_git
             ;;
         s)
             # Setup SSH options
-            setup_ssh
+            install_ssh
             ;;
         x)
             # Setup X settings
@@ -302,7 +313,7 @@ while getopts ":hcztivgsx3rfu" opt; do
             ;;
         3)
             # Setup i3 config
-            setup_i3
+            install_i3
             ;;
         r)
             # Apply some of this config to the root user
