@@ -242,13 +242,12 @@ fedora_packages()
 {
     # Install the packages I find helpful for Fedora
     add_vlc_repo
-    sudo yum update -y
     sudo yum install -y git tmux wget vim-X11 vim ipython nmap nload mtr i3 \
                      i3status zsh google-chrome-stable scrot irssi \
-                     network-manager-applet xbacklight vlc python-virtualenv \
+                     network-manager-applet xbacklight vlc \
                      python-pip openssl openssl-devel zlib-devel ncurses-devel \
                      readline-devel transmission linphone
-    sudo pip install virtualenvwrapper tox
+    sudo pip install virtualenvwrapper tox virtualenv
 }
 
 ubuntu_packages()
@@ -257,9 +256,9 @@ ubuntu_packages()
     sudo apt-get update
     sudo apt-get upgrade
     sudo apt-get install vim-gtk ipython tmux nmap git nload tree p7zip-full \
-                         sshfs zsh meld python-virtualenv python-pip vlc \
+                         sshfs zsh meld python-pip vlc \
                          i3 chromium-browser
-    sudo pip install virtualenvwrapper
+    sudo pip install virtualenvwrapper tox virtualenv
 }
 
 # If executed with no options
