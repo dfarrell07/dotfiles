@@ -246,7 +246,7 @@ fedora_packages()
                      i3status zsh google-chrome-stable scrot irssi \
                      network-manager-applet xbacklight vlc \
                      python-pip openssl openssl-devel zlib-devel ncurses-devel \
-                     readline-devel transmission linphone pep8
+                     readline-devel transmission linphone python-pep8
     sudo pip install virtualenvwrapper tox virtualenv
 }
 
