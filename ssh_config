@@ -63,3 +63,9 @@ Host cbenchlll
     Hostname 209.132.178.222
     User fedora
     IdentityFile /home/daniel/.ssh/id_rsa_nopass
+
+Host wcbench
+    Hostname 10.3.9.110
+    User fedora
+    IdentityFile /home/daniel/.ssh/id_rsa_nopass
+    StrictHostKeyChecking no
