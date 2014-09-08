@@ -69,3 +69,27 @@ Host wcbench
     User fedora
     IdentityFile /home/daniel/.ssh/id_rsa_nopass
     StrictHostKeyChecking no
+
+Host controller
+    Hostname 10.3.9.110
+    User fedora
+    IdentityFile /home/daniel/.ssh/id_rsa_nopass
+    StrictHostKeyChecking no
+
+Host network
+    Hostname 10.3.10.105
+    User fedora
+    IdentityFile /home/daniel/.ssh/id_rsa_nopass
+    StrictHostKeyChecking no
+
+Host compute
+    Hostname 10.3.10.162
+    User fedora
+    IdentityFile /home/daniel/.ssh/id_rsa_nopass
+    StrictHostKeyChecking no
+
+Host devstack
+    Hostname 10.3.10.163
+    User fedora
+    IdentityFile /home/daniel/.ssh/id_rsa_nopass
+    StrictHostKeyChecking no
