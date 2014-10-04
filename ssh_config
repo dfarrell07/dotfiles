@@ -93,3 +93,18 @@ Host devstack
     User fedora
     IdentityFile /home/daniel/.ssh/id_rsa_nopass
     StrictHostKeyChecking no
+
+Host jess
+    Hostname 192.168.0.9
+    User bonnie
+    IdentityFile /home/daniel/.ssh/id_rsa_nopass
+
+Host puppet
+    Hostname 192.168.0.7
+    User root
+    IdentityFile /home/daniel/.ssh/id_rsa_nopass
+
+Host cdev
+    Hostname 104.131.73.211
+    User root
+    IdentityFile /home/daniel/.ssh/id_rsa_nopass
