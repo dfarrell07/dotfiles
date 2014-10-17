@@ -29,71 +29,6 @@ Host mini
     User mininet
     Port 3022
 
-Host cbenchl
-    Hostname 209.132.178.216
-    User fedora
-    IdentityFile /home/daniel/.ssh/id_rsa_nopass
-
-Host cbenchs
-    Hostname 209.132.178.215
-    User fedora
-    IdentityFile /home/daniel/.ssh/id_rsa_nopass
-
-Host cbenchc
-    Hostname 209.132.178.214
-    User fedora
-    IdentityFile /home/daniel/.ssh/id_rsa_nopass
-
-Host cbenchd
-    Hostname 209.132.178.217
-    User fedora
-    IdentityFile /home/daniel/.ssh/id_rsa_nopass
-
-Host cbenchb
-    Hostname 209.132.178.162
-    User cloud-user
-    IdentityFile /home/daniel/.ssh/id_rsa_nopass
-
-Host cbenchll
-    Hostname 209.132.178.221
-    User fedora
-    IdentityFile /home/daniel/.ssh/id_rsa_nopass
-
-Host cbenchlll
-    Hostname 209.132.178.222
-    User fedora
-    IdentityFile /home/daniel/.ssh/id_rsa_nopass
-
-Host wcbench
-    Hostname 10.3.9.110
-    User fedora
-    IdentityFile /home/daniel/.ssh/id_rsa_nopass
-    StrictHostKeyChecking no
-
-Host controller
-    Hostname 10.3.9.110
-    User fedora
-    IdentityFile /home/daniel/.ssh/id_rsa_nopass
-    StrictHostKeyChecking no
-
-Host network
-    Hostname 10.3.10.105
-    User fedora
-    IdentityFile /home/daniel/.ssh/id_rsa_nopass
-    StrictHostKeyChecking no
-
-Host compute
-    Hostname 10.3.10.162
-    User fedora
-    IdentityFile /home/daniel/.ssh/id_rsa_nopass
-    StrictHostKeyChecking no
-
-Host devstack
-    Hostname 10.3.10.163
-    User fedora
-    IdentityFile /home/daniel/.ssh/id_rsa_nopass
-    StrictHostKeyChecking no
-
 Host jess
     Hostname 192.168.0.9
     User bonnie
@@ -104,7 +39,7 @@ Host puppet
     User root
     IdentityFile /home/daniel/.ssh/id_rsa_nopass
 
-Host cdev
-    Hostname 104.131.73.211
-    User root
+Host dev
+    Hostname 10.3.8.114
+    User fedora
     IdentityFile /home/daniel/.ssh/id_rsa_nopass
