@@ -16,6 +16,7 @@ Setup a Linux system.
 OPTIONS:
     -h Show this message
     -c Clone configuration files
+    -C Install Google Chrome
     -z Install and setup ZSH shell
     -t Install and setup tmux
     -i Setup irssi IRC client
