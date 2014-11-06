@@ -28,6 +28,7 @@ OPTIONS:
     -r Apply some of this config to root
     -f Install packages for Fedora
     -u Install packages for Ubuntu
+    -d Remove default dirs I find useless
 EOF
 }
 
@@ -263,13 +264,19 @@ ubuntu_packages()
     sudo pip install virtualenvwrapper tox virtualenv
 }
 
+del_useless_dirs()
+{
+    # Removes default dirs that I have no use for
+    rm -rf ~/Videos ~/Templates ~/Public ~/Music ~/Desktop
+}
+
 # If executed with no options
 if [ $# -eq 0 ]; then
     usage
     exit $EX_USAGE
 fi
 
-while getopts ":hcCztivgsx3rfu" opt; do
+while getopts ":hcCztivgsx3rfud" opt; do
     case "$opt" in
         h)
             # Help message
@@ -327,6 +334,10 @@ while getopts ":hcCztivgsx3rfu" opt; do
         u)
             # Install packages for Ubuntu
             ubuntu_packages
+            ;;
+        u)
+            # Delete dirs I have no use for
+            del_useless_dirs
             ;;
         *)
             usage
