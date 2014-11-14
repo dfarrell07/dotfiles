@@ -43,3 +43,9 @@ Host dev
     Hostname 10.3.8.114
     User fedora
     IdentityFile /home/daniel/.ssh/id_rsa_nopass
+
+Host cbench
+    Hostname 10.3.12.77
+    User fedora
+    IdentityFile /home/daniel/.ssh/id_rsa_nopass
+

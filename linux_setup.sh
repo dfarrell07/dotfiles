@@ -96,7 +96,7 @@ install_vim()
     # you'll need to use `gvim -v`. The vim package isn't compiled
     # with X support. This only applies to Fedora.
     if ! command -v vim &> /dev/null; then
-        sudo yum update vim-minimal
+        sudo yum update -y vim-minimal
         sudo yum install -y vim-X11 vim
     fi
     clone_dotfiles
@@ -223,7 +223,7 @@ setup_root()
 add_vlc_repo()
 {
     # Add VLC repo to yum's sources
-    su -c 'yum localinstall --nogpgcheck http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm'
+    su -c 'yum localinstall -y --nogpgcheck http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm'
 }
 
 install_chrome()
