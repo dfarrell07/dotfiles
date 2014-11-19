@@ -163,8 +163,11 @@ install_ssh()
     if [ ! -f $HOME/.ssh/id_rsa_nopass.pub ]; then
         ln -s $HOME/.dotfiles/id_rsa_nopass.pub $HOME/.ssh/id_rsa_nopass.pub
     fi
-    if [ ! -f $HOME/.ssh/id_rsa_nopass ]; then
-        ln -s $HOME/.dotfiles/id_rsa_nopass $HOME/.ssh/id_rsa_nopass
+    if [ ! -f $HOME/.ssh/id_rsa.pub ]; then
+        ln -s $HOME/.dotfiles/id_rsa_nopass.pub $HOME/.ssh/id_rsa.pub
+    fi
+    if [ ! -f $HOME/.ssh/id_rsa ]; then
+        ln -s $HOME/.dotfiles/id_rsa_nopass $HOME/.ssh/id_rsa
     fi
 
     # Set permissions required by SSH
