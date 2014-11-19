@@ -252,7 +252,7 @@ fedora_packages()
                      network-manager-applet xbacklight vlc \
                      python-pip openssl openssl-devel zlib-devel ncurses-devel \
                      readline-devel transmission linphone python-pep8 gcc \
-                     docker-io git-review
+                     docker-io git-review python-requests
     sudo pip install virtualenvwrapper tox virtualenv
 }
 
