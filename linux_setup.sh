@@ -29,6 +29,7 @@ OPTIONS:
     -f Install packages for Fedora
     -u Install packages for Ubuntu
     -d Remove default dirs I find useless
+    -D Install and configure Docker
 EOF
 }
 
@@ -243,6 +244,30 @@ EOL"
     sudo yum install -y google-chrome-stable
 }
 
+install_docker()
+{
+    # Install and configure Docker
+    if ! command -v docker &> /dev/null; then
+        sudo yum install -y docker-io
+    fi
+    sudo systemctl start docker
+    sudo systemctl enable docker
+    sudo usermod -a -G docker $USER
+    echo "You may need to reboot for docker perms to take effect"
+    sleep 1
+    echo "^^Notice this!"
+    sleep 1
+    echo "^^Notice this!"
+    sleep 1
+    echo "^^Notice this!"
+
+    # Necessary on systems with BTRFS
+    # See: https://github.com/docker/docker/issues/7952
+    if $(df -T | grep -q btrfs); then
+        sudo sed -i '/OPTIONS=--selinux-enabled/d' /etc/sysconfig/docker
+    fi
+}
+
 fedora_packages()
 {
     # Install the packages I find helpful for Fedora
@@ -279,7 +304,7 @@ if [ $# -eq 0 ]; then
     exit $EX_USAGE
 fi
 
-while getopts ":hcCztivgsx3rfud" opt; do
+while getopts ":hcCztivgsx3rfudD" opt; do
     case "$opt" in
         h)
             # Help message
@@ -338,9 +363,13 @@ while getopts ":hcCztivgsx3rfud" opt; do
             # Install packages for Ubuntu
             ubuntu_packages
             ;;
-        u)
+        d)
             # Delete dirs I have no use for
             del_useless_dirs
+            ;;
+        D)
+            # Install and configure Docker
+            install_docker
             ;;
         *)
             usage

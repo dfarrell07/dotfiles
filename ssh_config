@@ -49,3 +49,13 @@ Host cbench
     User fedora
     IdentityFile /home/daniel/.ssh/id_rsa_nopass
 
+Host wcbench
+    Hostname 10.3.8.230
+    User fedora
+    IdentityFile /home/daniel/.ssh/id_rsa_nopass
+
+Host wcbench1
+    Hostname 10.3.12.57
+    User fedora
+    IdentityFile /home/daniel/.ssh/id_rsa_nopass
+
