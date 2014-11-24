@@ -273,7 +273,7 @@ fedora_packages()
     # Install the packages I find helpful for Fedora
     add_vlc_repo
     sudo yum install -y git tmux wget vim-X11 vim ipython nmap nload mtr i3 \
-                     i3status zsh google-chrome-stable scrot irssi \
+                     i3status zsh scrot irssi \
                      network-manager-applet xbacklight vlc \
                      python-pip openssl openssl-devel zlib-devel ncurses-devel \
                      readline-devel transmission linphone python-pep8 gcc \
