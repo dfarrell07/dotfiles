@@ -62,6 +62,9 @@ decrypt_ssh_config()
     echo "Password for dotfiles/ssh_config.enc (encrypted with aes-256-cbc):"
     openssl aes-256-cbc -d -in $HOME/.dotfiles/ssh_config.enc \
         -out $HOME/.dotfiles/ssh_config
+
+    # Set required permissions
+    chmod 600 $HOME/.dotfiles/ssh_config
 }
 
 update_ssh_config()
@@ -86,9 +89,6 @@ update_ssh_config()
     echo "This password will be used to encrypt ssh_config with aes-256-cbc"
     openssl aes-256-cbc -e -in $HOME/.dotfiles/ssh_config \
         -out $HOME/.dotfiles/ssh_config.enc
-
-    # Set required permissions
-    chmod 600 $HOME/.dotfiles/ssh_config
 }
 
 clone_dotfiles()
