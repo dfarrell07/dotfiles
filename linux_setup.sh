@@ -1,7 +1,8 @@
 #!/usr/bin/env sh
 
-EX_USAGE=64
 EX_OK=0
+EX_ERR=1
+EX_USAGE=64
 
 ROOT_HOME="/root"
 
@@ -28,9 +29,66 @@ OPTIONS:
     -r Apply some of this config to root
     -f Install packages for Fedora
     -u Install packages for Ubuntu
-    -d Remove default dirs I find useless
+    -h Remove the default dirs in ~ that I find useless
     -D Install and configure Docker
+    -d Decrypt ssh_config.enc to dotfiles/ssh_config
+    -e Replace current ssh_config.enc with newly-ecrypted ssh_config
 EOF
+}
+
+decrypt_ssh_config()
+{
+    # TODO: Doc
+    # No work to do if ssh_config is already decrypted
+    if [ -f $HOME/.dotfiles/ssh_config ]; then
+        echo "ssh_config (decrypted) already exists"
+        return $EX_OK
+    fi
+
+    # If decrypted ssh_config not found, confirm encrypted version exists
+    if [ ! -f $HOME/.dotfiles/ssh_config.enc ]; then
+        echo "ERROR: Encrypted ~/.ssh/config (ssh_config.enc) not found!" >&2
+        sleep 1
+        echo "Notice this^^"
+        sleep 1
+        echo "Notice this^^"
+        sleep 1
+        echo "Notice this^^"
+        exit $EX_ERR
+    fi
+
+    # Need to decrypt ssh_config.enc
+    # TODO: Look at exit status, loop until success
+    echo "Password for dotfiles/ssh_config.enc (encrypted with aes-256-cbc):"
+    openssl aes-256-cbc -d -in $HOME/.dotfiles/ssh_config.enc \
+        -out $HOME/.dotfiles/ssh_config
+}
+
+update_ssh_config()
+{
+    # Support for replacing ssh_config.enc with an update from ssh_config
+    # Warning: This will delete the current ssh_config.enc!
+    #   If you don't want to replace ssh_config.enc with ssh_config, avoid!
+    echo "Replacing ssh_config.enc with newly-encrypted version of ssh_config"
+
+    # Confirm that decrypted version (dotfiles/ssh_config) exists
+    if [ ! -f $HOME/.dotfiles/ssh_config ]; then
+        echo "ERROR: dotfiles/ssh_config not found" >&2
+        return $EX_ERR
+    fi
+
+    # Delete old ssh_config.enc
+    echo "Deleting dotfiles/ssh_config.enc in 5 seconds! (ctrl+c to kill)"
+    sleep 5
+    rm $HOME/.dotfiles/ssh_config.enc
+
+    # Encrypt new dotfiles/ssh_config.enc from current dotfiles/ssh_config
+    echo "This password will be used to encrypt ssh_config with aes-256-cbc"
+    openssl aes-256-cbc -e -in $HOME/.dotfiles/ssh_config \
+        -out $HOME/.dotfiles/ssh_config.enc
+
+    # Set required permissions
+    chmod 600 $HOME/.dotfiles/ssh_config
 }
 
 clone_dotfiles()
@@ -43,6 +101,11 @@ clone_dotfiles()
     then
         git clone https://github.com/dfarrell07/dotfiles.git $HOME/.dotfiles
     fi
+
+    # Check if ssh_config exists, if not decrypt
+    decrypt_ssh_config
+
+    # Update paths in ssh_config for current username (path to ~)
     sed -i "s/\/home\/daniel/\/home\/$USER/g" $HOME/.dotfiles/ssh_config
 }
 
@@ -159,6 +222,7 @@ install_ssh()
 
     # Symlink config files to their proper location
     if [ ! -f $HOME/.ssh/config ]; then
+        decrypt_ssh_config
         ln -s $HOME/.dotfiles/ssh_config $HOME/.ssh/config
     fi
     if [ ! -f $HOME/.ssh/id_rsa_nopass.pub ]; then
@@ -304,7 +368,7 @@ if [ $# -eq 0 ]; then
     exit $EX_USAGE
 fi
 
-while getopts ":hcCztivgsx3rfudD" opt; do
+while getopts ":hcCztivgsx3rfuhDde" opt; do
     case "$opt" in
         h)
             # Help message
@@ -363,15 +427,24 @@ while getopts ":hcCztivgsx3rfudD" opt; do
             # Install packages for Ubuntu
             ubuntu_packages
             ;;
-        d)
-            # Delete dirs I have no use for
+        h)
+            # TODO: Update - Delete dirs I have no use for
             del_useless_dirs
             ;;
         D)
             # Install and configure Docker
             install_docker
             ;;
+        d)
+             # Decrypt ssh_config.enc to dotfiles/ssh_config
+            decrypt_ssh_config
+            ;;
+        e)
+            # Replace current ssh_config.enc with newly-ecrypted ssh_config
+            update_ssh_config
+            ;;
         *)
+            # All other flags fall through to here
             usage
             exit $EX_USAGE
     esac
