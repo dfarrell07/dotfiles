@@ -1,13 +1,5 @@
 servers = (
   {
-    address = "irc.freenode.net";
-    chatnet = "Freenode";
-    port = "6667";
-    use_ssl = "no";
-    ssl_verify = "no";
-    autoconnect = "yes";
-  },
-  {
     address = "irc.devel.redhat.com";
     chatnet = "RedHat";
     port = "6667";
@@ -17,26 +9,11 @@ servers = (
   }
 );
 
-chatnets = {
-  Freenode = { type = "IRC"; };
-  RedHat = { type = "IRC"; };
-};
+chatnets = { RedHat = { type = "IRC"; }; };
 
 channels = (
-  { name = "#opendaylight"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#opendaylight-integration"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#opendaylight-ovsdb"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#opendaylight-meeting"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#openstack-neutron"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#openstack-dev"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#openvswitch"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#interns2014"; chatnet = "RedHat"; autojoin = "yes"; },
-  { name = "#raleighpromo"; chatnet = "RedHat"; autojoin = "yes"; },
-  { name = "#ncsulug"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#trilug"; chatnet = "freenode"; autojoin = "yes"; }
-  { name = "#rhos-dev"; chatnet = "RedHat"; autojoin = "yes"; },
-  { name = "#rhos-users"; chatnet = "RedHat"; autojoin = "yes"; },
   { name = "#devel"; chatnet = "RedHat"; autojoin = "yes"; },
+  { name = "#rh-sdn-dev"; chatnet = "RedHat"; autojoin = "yes"; }
 );
 
 statusbar = {
@@ -162,20 +139,8 @@ settings = {
 };
 
 ignores = (
-  { level = "JOINS PARTS QUITS NICKS"; channels = ( "#opendaylight" ); },
-  { level = "JOINS PARTS QUITS NICKS"; channels = ( "#opendaylight-ovsdb" ); },
-  { level = "JOINS PARTS QUITS NICKS"; channels = ( "#opendaylight-meeting" ); },
-  { level = "JOINS PARTS QUITS NICKS"; channels = ( "#opendaylight-integration" ); },
   { level = "JOINS PARTS QUITS NICKS"; channels = ( "#devel" ); },
-  { level = "JOINS PARTS QUITS NICKS"; channels = ( "#openstack-dev" ); },
-  { level = "JOINS PARTS QUITS NICKS"; channels = ( "#openstack-neutron" ); },
-  { level = "JOINS PARTS QUITS NICKS"; channels = ( "#rhos-dev" ); },
-  { level = "JOINS PARTS QUITS NICKS"; channels = ( "#rhos-users" ); },
-  { level = "JOINS PARTS QUITS NICKS"; channels = ( "#openvswitch" ); },
-  { level = "JOINS PARTS QUITS NICKS"; channels = ( "#ncsulug" ); },
-  { level = "JOINS PARTS QUITS NICKS"; channels = ( "#interns2014" ); },
-  { level = "JOINS PARTS QUITS NICKS"; channels = ( "#raleighpromo" ); },
-  { level = "JOINS PARTS QUITS NICKS"; channels = ( "#trilug" ); }
+  { level = "JOINS PARTS QUITS NICKS"; channels = ( "#rh-sdn-dev" ); }
 );
 
 windows = {
@@ -185,134 +150,12 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#opendaylight";
-        tag = "Freenode";
+        name = "#rh-sdn-dev";
+        tag = "RedHat";
       }
     );
   };
   3 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#opendaylight-ovsdb";
-        tag = "Freenode";
-      }
-    );
-  };
-  4 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#opendaylight-integration";
-        tag = "Freenode";
-      }
-    );
-  };
-  5 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#opendaylight-meeting";
-        tag = "Freenode";
-      }
-    );
-  };
-  6 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#openstack-neutron";
-        tag = "Freenode";
-      }
-    );
-  };
-  7 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#openstack-dev";
-        tag = "Freenode";
-      }
-    );
-  };
-  8 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#openvswitch";
-        tag = "Freenode";
-      }
-    );
-  };
-  9 = { };
-  10 = { name = "hilight"; sticky = "yes"; };
-  11 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#interns2014";
-        tag = "RedHat";
-      }
-    );
-  };
-  12 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#raleighpromo";
-        tag = "RedHat";
-      }
-    );
-  };
-  13 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#ncsulug";
-        tag = "Freenode";
-      }
-    );
-  };
-  14 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#trilug";
-        tag = "Freenode";
-      }
-    );
-  };
-  15 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#rhos-dev";
-        tag = "RedHat";
-      }
-    );
-  };
-  16 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#rhos-users";
-        tag = "RedHat";
-      }
-    );
-  };
-  17 = {
     items = (
       {
         type = "CHANNEL";
@@ -322,6 +165,8 @@ windows = {
       }
     );
   };
+  9 = { };
+  10 = { name = "hilight"; sticky = "yes"; };
 };
 
 mainwindows = {
