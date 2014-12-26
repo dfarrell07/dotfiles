@@ -257,20 +257,29 @@ setup_x()
 
 install_i3()
 {
+    # Install i3 WM if it isn't already installed
     if ! command -v i3 &> /dev/null; then
         sudo yum install -y i3
     fi
+    # Install i3status, used by i3 WM, if it isn't already installed
     if ! command -v i3status &> /dev/null; then
         sudo yum install -y i3status
     fi
-    
-    # Symlink i3 WM config to proper path
+
+    # Clone configs, including i3 and i3status configurations 
+    clone_dotfiles
+
+    # Create required dir for i3 config, if it doesn't exist    
     if [ ! -d $HOME/.i3 ]
     then
         mkdir $HOME/.i3
     fi
-    clone_dotfiles
+
+    # Symlink i3 WM config to proper path
     ln -s $HOME/.dotfiles/i3_config $HOME/.i3/config
+
+    # Symlink i3status config to proper path
+    ln -s $HOME/.dotfiles/i3status.conf $HOME/.i3status.conf
 }
 
 setup_root()
