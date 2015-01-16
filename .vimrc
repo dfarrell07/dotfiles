@@ -2,11 +2,11 @@
 set history=5000
  
 " Use spaces vs hard tab
-set ts=4 expandtab
+set ts=2 expandtab
  
-" 1 tab == 4 spaces
-set shiftwidth=4
-set tabstop=4
+" 1 tab == 2 spaces
+set shiftwidth=2
+set tabstop=2
  
 " Tab and backspace are smart
 set smarttab
