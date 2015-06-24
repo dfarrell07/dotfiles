@@ -17,6 +17,15 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
+# Required for Packer
+# *Do* want this first FYI future self, there's a wrong `packer` in sbin
+# https://www.packer.io/docs/installation.html
+export PATH=/usr/local/packer:$PATH
+
+# Required for lib-puppet (maybe other gems?)
+# Adding to end is better here, just need to find it eventually
+export PATH=$PATH:/home/daniel/.gem/ruby/gems/librarian-puppet-2.0.1/bin
+
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 export EDITOR='vim'
 export WORKON_HOME="$HOME/.virtualenvs"
