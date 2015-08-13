@@ -351,7 +351,7 @@ fedora_packages()
                      python-pip openssl openssl-devel zlib-devel ncurses-devel \
                      readline-devel transmission linphone python-pep8 gcc \
                      docker-io git-review python-requests ruby-devel gcc-c++ \
-                     VirtualBox kmod-VirtualBox
+                     VirtualBox kmod-VirtualBox shellcheck
     sudo pip install virtualenvwrapper tox virtualenv
 }
 
