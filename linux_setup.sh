@@ -321,11 +321,12 @@ install_docker()
 {
     # Install and configure Docker
     if ! command -v docker &> /dev/null; then
-        sudo yum install -y docker-io
+        sudo yum install -y docker
     fi
+    sudo groupadd docker
+    sudo usermod -a -G docker $USER
     sudo systemctl start docker
     sudo systemctl enable docker
-    sudo usermod -a -G docker $USER
     echo "You may need to reboot for docker perms to take effect"
     sleep 1
     echo "^^Notice this!"
@@ -351,7 +352,8 @@ fedora_packages()
                      python-pip openssl openssl-devel zlib-devel ncurses-devel \
                      readline-devel transmission linphone python-pep8 gcc \
                      docker-io git-review python-requests ruby-devel gcc-c++ \
-                     VirtualBox kmod-VirtualBox shellcheck
+                     VirtualBox kmod-VirtualBox shellcheck \
+                     network-manager-applet nload htop nload htop
     sudo pip install virtualenvwrapper tox virtualenv
 }
 
