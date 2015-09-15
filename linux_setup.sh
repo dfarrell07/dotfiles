@@ -353,8 +353,10 @@ fedora_packages()
                      readline-devel transmission linphone python-pep8 gcc \
                      docker-io git-review python-requests ruby-devel gcc-c++ \
                      VirtualBox kmod-VirtualBox shellcheck \
-                     network-manager-applet nload htop nload htop
+                     network-manager-applet nload htop nload htop kernel-devel \
+                     dkms git-review rubygem-bunder
     sudo pip install virtualenvwrapper tox virtualenv
+    # Will need to install VBox and Vagrant from latest RPMs
 }
 
 ubuntu_packages()
