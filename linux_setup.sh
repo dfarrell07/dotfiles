@@ -354,7 +354,7 @@ fedora_packages()
                      docker-io git-review python-requests ruby-devel gcc-c++ \
                      VirtualBox kmod-VirtualBox shellcheck \
                      network-manager-applet nload htop nload htop kernel-devel \
-                     dkms git-review rubygem-bunder
+                     dkms git-review rubygem-bunder koji
     sudo pip install virtualenvwrapper tox virtualenv
     # Will need to install VBox and Vagrant from latest RPMs
 }
