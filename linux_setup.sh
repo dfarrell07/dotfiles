@@ -95,7 +95,7 @@ clone_dotfiles()
 {
     # Grab repo of Linux configuration files
     if ! command -v git &> /dev/null; then
-        sudo yum install -y git
+        sudo dnf install -y git
     fi
     if [ ! -d $HOME/.dotfiles ]
     then
@@ -125,7 +125,7 @@ install_zsh()
     # Install and configure ZSH. Can be used stand-alone.
     # Usecase: dev boxes that you want mostly fresh, but need zsh
     if ! command -v zsh &> /dev/null; then
-        sudo yum install -y zsh
+        sudo dnf install -y zsh
     fi
 
     # Symlink my ZSH config to proper path
@@ -145,7 +145,7 @@ install_tmux()
     # Stand-alone function for installing/setting up only tmux
     # Usecase: dev boxes that you want mostly fresh, but need tmux
     if ! command -v tmux &> /dev/null; then
-        sudo yum install -y tmux
+        sudo dnf install -y tmux
     fi
     clone_dotfiles
     # Symlink tmux config to proper path
@@ -160,8 +160,8 @@ install_vim()
     # you'll need to use `gvim -v`. The vim package isn't compiled
     # with X support. This only applies to Fedora.
     if ! command -v vim &> /dev/null; then
-        sudo yum update -y vim-minimal
-        sudo yum install -y vim-X11 vim
+        sudo dnf update -y vim-minimal
+        sudo dnf install -y vim-X11 vim
     fi
     clone_dotfiles
     # Symlink vim config to proper path
@@ -171,10 +171,10 @@ install_vim()
 install_irssi()
 {
     if ! command -v irssi &> /dev/null; then
-        sudo yum install -y irssi 
+        sudo dnf install -y irssi 
     fi
     if ! command -v wget &> /dev/null; then
-        sudo yum install -y wget
+        sudo dnf install -y wget
     fi
     # Grab irssi themes/plugins, drop in proper path, symlink config
     AUTORUN_DIR=$HOME/.irssi/scripts/autorun
@@ -202,10 +202,10 @@ install_ssh()
 
     # Install OpenSSL for decrypting priv key
     if ! command -v openssl &> /dev/null; then
-        sudo yum install -y openssl
+        sudo dnf install -y openssl
     fi
     if ! command -v openssl-devel &> /dev/null; then
-        sudo yum install -y openssl-devel
+        sudo dnf install -y openssl-devel
     fi
     
     # Decrypt private key
@@ -259,11 +259,11 @@ install_i3()
 {
     # Install i3 WM if it isn't already installed
     if ! command -v i3 &> /dev/null; then
-        sudo yum install -y i3
+        sudo dnf install -y i3
     fi
     # Install i3status, used by i3 WM, if it isn't already installed
     if ! command -v i3status &> /dev/null; then
-        sudo yum install -y i3status
+        sudo dnf install -y i3status
     fi
 
     # Clone configs, including i3 and i3status configurations 
@@ -297,12 +297,6 @@ setup_root()
     sudo ln -s $HOME/.dotfiles/.tmux.conf $ROOT_HOME/.tmux.conf
 }
 
-add_vlc_repo()
-{
-    # Add VLC repo to yum's sources
-    su -c 'yum localinstall -y --nogpgcheck http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm'
-}
-
 install_chrome()
 {
     # Add Google Chrome repo to yum's sources
@@ -314,14 +308,14 @@ enabled=1
 gpgcheck=1
 gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub
 EOL"
-    sudo yum install -y google-chrome-stable
+    sudo dnf install -y google-chrome-stable
 }
 
 install_docker()
 {
     # Install and configure Docker
     if ! command -v docker &> /dev/null; then
-        sudo yum install -y docker
+        sudo dnf install -y docker
     fi
     sudo groupadd docker
     sudo usermod -a -G docker $USER
@@ -345,17 +339,17 @@ install_docker()
 fedora_packages()
 {
     # Install the packages I find helpful for Fedora
-    add_vlc_repo
-    sudo yum install -y git tmux wget vim-X11 vim ipython nmap nload mtr i3 \
+    sudo dnf install -y git tmux wget vim-X11 vim ipython nmap nload mtr i3 \
                      i3status zsh scrot irssi \
                      network-manager-applet xbacklight vlc \
                      python-pip openssl openssl-devel zlib-devel ncurses-devel \
                      readline-devel transmission linphone python-pep8 gcc \
                      docker-io git-review python-requests ruby-devel gcc-c++ \
-                     VirtualBox kmod-VirtualBox shellcheck \
+                     ShellCheck \
                      network-manager-applet nload htop nload htop kernel-devel \
-                     dkms git-review rubygem-bunder koji
-    sudo pip install virtualenvwrapper tox virtualenv
+                     dkms rubygem-bundler koji
+    sudo pip install --upgrade pip
+    sudo pip install virtualenvwrapper tox virtualenv --upgrade
     # Will need to install VBox and Vagrant from latest RPMs
 }
 
