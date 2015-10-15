@@ -347,7 +347,7 @@ fedora_packages()
                      docker-io git-review python-requests ruby-devel gcc-c++ \
                      ShellCheck \
                      network-manager-applet nload htop nload htop kernel-devel \
-                     dkms rubygem-bundler koji
+                     dkms rubygem-bundler koji ansible
     sudo pip install --upgrade pip
     sudo pip install virtualenvwrapper tox virtualenv --upgrade
     # Will need to install VBox and Vagrant from latest RPMs
