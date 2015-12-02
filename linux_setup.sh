@@ -348,6 +348,7 @@ fedora_packages()
                      ShellCheck \
                      network-manager-applet nload htop nload htop kernel-devel \
                      dkms rubygem-bundler koji ansible
+    sudo dnf groupinstall -y "C Development Tools and Libraries"
     sudo pip install --upgrade pip
     sudo pip install virtualenvwrapper tox virtualenv --upgrade
     # Will need to install VBox and Vagrant from latest RPMs
