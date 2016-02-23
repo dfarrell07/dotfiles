@@ -131,6 +131,7 @@ install_zsh()
     # Symlink my ZSH config to proper path
     clone_dotfiles
     ln -s $HOME/.dotfiles/.zshrc $HOME/.zshrc
+    ln -s $HOME/.dotfiles/.zlogin $HOME/.zlogin
 
     # Grab general ZSH config via oh-my-zsh project
     # See https://github.com/robbyrussell/oh-my-zsh
