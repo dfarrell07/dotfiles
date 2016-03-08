@@ -29,7 +29,6 @@ OPTIONS:
     -3 Setup i3 config
     -r Apply some of this config to root
     -f Install packages for Fedora
-    -u Install packages for Ubuntu
     -h Remove the default dirs in ~ that I find useless
     -D Install and configure Docker
     -d Decrypt ssh_config.enc to dotfiles/ssh_config
@@ -357,17 +356,6 @@ fedora_packages()
     # Will need to install vagrant-libvirt and vagrant-nfs_guest plugins
 }
 
-ubuntu_packages()
-{
-    # Install the packages I find helpful for Ubuntu
-    sudo apt-get update
-    sudo apt-get upgrade
-    sudo apt-get install vim-gtk ipython tmux nmap git nload tree p7zip-full \
-                         sshfs zsh meld python-pip vlc \
-                         i3 chromium-browser
-    sudo pip install virtualenvwrapper tox virtualenv
-}
-
 del_useless_dirs()
 {
     # Removes default dirs that I have no use for
@@ -458,12 +446,8 @@ while getopts ":hcCGztivgsx3rfuhDde" opt; do
             # Install packages for Fedora
             fedora_packages
             ;;
-        u)
-            # Install packages for Ubuntu
-            ubuntu_packages
-            ;;
         h)
-            # TODO: Update - Delete dirs I have no use for
+            # Delete dirs I have no use for
             del_useless_dirs
             ;;
         D)
