@@ -342,12 +342,12 @@ fedora_packages()
     # Install the packages I find helpful for Fedora
     sudo dnf install -y git tmux wget vim-X11 vim ipython nmap nload mtr i3 \
                      i3status zsh scrot irssi \
-                     network-manager-applet xbacklight vlc \
+                     network-manager-applet xbacklight \
                      python-pip openssl openssl-devel zlib-devel ncurses-devel \
                      readline-devel transmission linphone python-pep8 gcc \
-                     docker-io git-review python-requests ruby-devel gcc-c++ \
+                     git-review python-requests ruby-devel gcc-c++ \
                      ShellCheck \
-                     network-manager-applet nload htop nload htop kernel-devel \
+                     htop nload kernel-devel \
                      dkms rubygem-bundler koji ansible
     sudo dnf groupinstall -y "C Development Tools and Libraries"
     sudo pip install --upgrade pip
