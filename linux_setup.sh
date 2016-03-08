@@ -17,7 +17,8 @@ Setup a Linux system.
 OPTIONS:
     -h Show this message
     -c Clone configuration files
-    -C Install Google Chrome
+    -C Clone useful code repos
+    -G Install Google Chrome
     -z Install and setup ZSH shell
     -t Install and setup tmux
     -i Setup irssi IRC client
@@ -203,10 +204,7 @@ install_ssh()
 
     # Install OpenSSL for decrypting priv key
     if ! command -v openssl &> /dev/null; then
-        sudo dnf install -y openssl
-    fi
-    if ! command -v openssl-devel &> /dev/null; then
-        sudo dnf install -y openssl-devel
+        sudo dnf install -y openssl openssl-devel
     fi
     
     # Decrypt private key
@@ -228,6 +226,9 @@ install_ssh()
     fi
     if [ ! -f $HOME/.ssh/id_rsa_nopass.pub ]; then
         ln -s $HOME/.dotfiles/id_rsa_nopass.pub $HOME/.ssh/id_rsa_nopass.pub
+    fi
+    if [ ! -f $HOME/.ssh/id_rsa_nopass ]; then
+        ln -s $HOME/.dotfiles/id_rsa_nopass $HOME/.ssh/id_rsa_nopass
     fi
     if [ ! -f $HOME/.ssh/id_rsa.pub ]; then
         ln -s $HOME/.dotfiles/id_rsa_nopass.pub $HOME/.ssh/id_rsa.pub
@@ -373,13 +374,30 @@ del_useless_dirs()
     rm -rf ~/Videos ~/Templates ~/Public ~/Music ~/Desktop
 }
 
+clone_code()
+{
+    # Clone useful code repos
+    install_git
+    old_cwd=$PWD
+    cd $HOME
+    git clone ssh://dfarrell07@git.opendaylight.org:29418/integration/packaging.git
+    git clone ssh://dfarrell07@git.opendaylight.org:29418/integration/test.git
+    git clone ssh://dfarrell07@git.opendaylight.org:29418/releng/builder.git
+    git clone git@github.com:dfarrell07/puppet-opendaylight.git
+    git clone git@github.com:dfarrell07/vagrant-opendaylight.git
+    git clone git@github.com:dfarrell07/ansible-opendaylight.git
+    git clone git@github.com:dfarrell07/wcbench.git
+    git clone git@github.com:IEEERobotics/bot.git
+    cd $old_cwd
+}
+
 # If executed with no options
 if [ $# -eq 0 ]; then
     usage
     exit $EX_USAGE
 fi
 
-while getopts ":hcCztivgsx3rfuhDde" opt; do
+while getopts ":hcCGztivgsx3rfuhDde" opt; do
     case "$opt" in
         h)
             # Help message
@@ -391,6 +409,10 @@ while getopts ":hcCztivgsx3rfuhDde" opt; do
             clone_dotfiles
             ;;
         C)
+            # Clone code repos
+            clone_code
+            ;;
+        G)
             # Install Google Chrome
             install_chrome
             ;;
