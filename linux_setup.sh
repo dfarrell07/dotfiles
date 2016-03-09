@@ -29,7 +29,7 @@ OPTIONS:
     -3 Setup i3 config
     -r Apply some of this config to root
     -f Install packages for Fedora
-    -h Remove the default dirs in ~ that I find useless
+    -H Remove the default dirs in ~ that I find useless
     -D Install and configure Docker
     -d Decrypt ssh_config.enc to dotfiles/ssh_config
     -e Replace current ssh_config.enc with newly-ecrypted ssh_config
@@ -387,7 +387,7 @@ if [ $# -eq 0 ]; then
     exit $EX_USAGE
 fi
 
-while getopts ":hcCGztivgsx3rfuhDde" opt; do
+while getopts ":hcCGztivgsx3rfuHDde" opt; do
     case "$opt" in
         h)
             # Help message
@@ -446,7 +446,7 @@ while getopts ":hcCGztivgsx3rfuhDde" opt; do
             # Install packages for Fedora
             fedora_packages
             ;;
-        h)
+        H)
             # Delete dirs I have no use for
             del_useless_dirs
             ;;
