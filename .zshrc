@@ -33,10 +33,7 @@ if [ -f /usr/bin/virtualenvwrapper.sh ]; then
     source /usr/bin/virtualenvwrapper.sh
 fi
 
-
 hash -d dl=~/Downloads
-
-zstyle ':completion:*' users-hosts root@192.168.7.2 daniel@10.0.0.2 ssh drfarrel@152.46.19.104 drfarrel@remote.eos.ncsu.edu
 
 alias -g ...='../..'
 alias -g ....='../../..'
