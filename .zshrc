@@ -47,3 +47,7 @@ alias starwars="telnet towel.blinkenlights.nl"
 alias df="df -h"
 alias gdb="gdb -quiet"
 alias mtrg="mtr google.com"
+
+# Fix "grep: warning: GREP_OPTIONS is deprecated; please use an alias or script"
+# Something exports it when I cd into git repos, so likey git zsh plugin
+unset GREP_OPTIONS
