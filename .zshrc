@@ -33,28 +33,20 @@ if [ -f /usr/bin/virtualenvwrapper.sh ]; then
     source /usr/bin/virtualenvwrapper.sh
 fi
 
-alias -g ...='../..'
-alias -g ....='../../..'
-alias -g .....='../../../..'
-alias -g ......='../../../../..'
-alias -g .......='../../../../../..'
-
-alias -s py=python
 
 hash -d dl=~/Downloads
 
 zstyle ':completion:*' users-hosts root@192.168.7.2 daniel@10.0.0.2 ssh drfarrel@152.46.19.104 drfarrel@remote.eos.ncsu.edu
 
+alias -g ...='../..'
+alias -g ....='../../..'
+alias -g .....='../../../..'
+alias -g ......='../../../../..'
+alias -g .......='../../../../../..'
 alias ping="ping -i .2"
 alias pingg="ping www.google.com"
 alias ping8="ping 8.8.8.8"
-alias sw="time read -sn1"
 alias starwars="telnet towel.blinkenlights.nl"
-alias n="nload -u M wlp3s0"
 alias df="df -h"
 alias gdb="gdb -quiet"
-alias top="top -d 1.5"
 alias mtrg="mtr google.com"
-alias start_mini="VBoxManage startvm mininet --type headless"
-
-RPROMPT=$RPROMPT'%{${fg[blue]}%}%*%{${fg[default]}%}'

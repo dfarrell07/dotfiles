@@ -134,8 +134,7 @@ install_zsh()
     ln -s $HOME/.dotfiles/.zlogin $HOME/.zlogin
 
     # Grab general ZSH config via oh-my-zsh project
-    # See https://github.com/robbyrussell/oh-my-zsh
-    git clone https://github.com/dfarrell07/oh-my-zsh $HOME/.oh-my-zsh
+    git clone https://github.com/robbyrussell/oh-my-zsh $HOME/.oh-my-zsh
 
     # Set ZSH as my default shell
     chsh -s `command -v zsh`
