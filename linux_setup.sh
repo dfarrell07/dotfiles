@@ -347,7 +347,7 @@ fedora_packages()
                      git-review python-requests ruby-devel gcc-c++ \
                      ShellCheck \
                      htop nload kernel-devel \
-                     dkms rubygem-bundler koji ansible
+                     dkms rubygem-bundler koji ansible redhat-rpm-config
     sudo dnf groupinstall -y "C Development Tools and Libraries"
     sudo pip install --upgrade pip
     sudo pip install virtualenvwrapper tox virtualenv --upgrade
