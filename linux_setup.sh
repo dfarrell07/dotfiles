@@ -352,7 +352,8 @@ fedora_packages()
     sudo pip install --upgrade pip
     sudo pip install virtualenvwrapper tox virtualenv --upgrade
     # Will need to install VBox and Vagrant from latest RPMs
-    # Will need to install vagrant-libvirt and vagrant-nfs_guest plugins
+    # Install vagrant-libvirt, vagrant-scp, maybe vagrant-nfs_guest plugins
+    # sudo vagrant plugin install vagrant-libvirt vagrant-scp
 }
 
 del_useless_dirs()
