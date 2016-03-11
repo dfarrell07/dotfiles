@@ -345,7 +345,7 @@ fedora_packages()
                      python-pip openssl openssl-devel zlib-devel ncurses-devel \
                      readline-devel transmission linphone python-pep8 gcc \
                      git-review python-requests ruby-devel gcc-c++ \
-                     ShellCheck \
+                     ShellCheck libvirt libvirt-devel \
                      htop nload kernel-devel \
                      dkms rubygem-bundler koji ansible redhat-rpm-config
     sudo dnf groupinstall -y "C Development Tools and Libraries"
