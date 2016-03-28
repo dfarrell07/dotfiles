@@ -351,6 +351,8 @@ fedora_packages()
     sudo dnf groupinstall -y "C Development Tools and Libraries"
     sudo pip install --upgrade pip
     sudo pip install virtualenvwrapper tox virtualenv --upgrade
+    sudo dnf copr enable -y bstinson/centos-packager
+    sudo dnf install -y centos-packager
     # Will need to install VBox and Vagrant from latest RPMs
     # Install vagrant-libvirt, vagrant-scp, maybe vagrant-nfs_guest plugins
     # sudo vagrant plugin install vagrant-libvirt vagrant-scp
