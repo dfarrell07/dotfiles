@@ -314,10 +314,7 @@ EOL"
 install_docker()
 {
     # Install and configure Docker
-    if ! command -v docker &> /dev/null; then
-        sudo dnf install -y docker
-    fi
-    sudo groupadd docker
+    curl -fsSL https://get.docker.com/ | sh
     sudo usermod -a -G docker $USER
     sudo systemctl start docker
     sudo systemctl enable docker
@@ -328,12 +325,6 @@ install_docker()
     echo "^^Notice this!"
     sleep 1
     echo "^^Notice this!"
-
-    # Necessary on systems with BTRFS
-    # See: https://github.com/docker/docker/issues/7952
-    if $(df -T | grep -q btrfs); then
-        sudo sed -i '/OPTIONS=--selinux-enabled/d' /etc/sysconfig/docker
-    fi
 }
 
 fedora_packages()
