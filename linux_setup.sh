@@ -356,6 +356,9 @@ fedora_packages()
     # Will need to install VBox and Vagrant from latest RPMs
     # Install vagrant-libvirt, vagrant-scp, maybe vagrant-nfs_guest plugins
     # sudo vagrant plugin install vagrant-libvirt vagrant-scp
+    # Will need to install Packer from binary zip
+    # https://releases.hashicorp.com/packer/
+    # unzip into /usr/local/packer
 }
 
 del_useless_dirs()
