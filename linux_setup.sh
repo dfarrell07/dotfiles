@@ -352,6 +352,49 @@ fedora_packages()
     # unzip into /usr/local/packer
 }
 
+vbox()
+{
+    # Configure VirtualBox virtualization
+    # This is typically meant to swap VBox for libvirt
+    # See: http://www.dedoimedo.com/computers/kvm-virtualbox.html
+    vbox_url="http://download.virtualbox.org/virtualbox/5.0.16/VirtualBox-5.0-5.0.16_105871_fedora22-1.x86_64.rpm"
+
+    # Install VirtualBox if it's not installed
+    if ! rpm -q VirtualBox-5.0 &> /dev/null; then
+        echo "Have you checked if this is the latest VBox version?"
+        echo "Installing VBox from:"
+        echo $vbox_url
+        echo "3Notice this^^"
+        sleep 1
+        echo "2Notice this^^"
+        sleep 1
+        echo "1Notice this^^"
+        sleep 1
+        sudo dnf install -y $vbox_url
+    fi
+
+    # Unload the KVM kmods. This shouldn't require a reboot.
+    if lsmod | grep kvm &> /dev/null; then
+        echo "Unloading kvm_intel and kvm kernel modules"
+        echo "This will fail if any libvirt VM is running"
+        sudo rmmod kvm_intel
+        sudo rmmod kvm
+    fi
+
+    # Virtualbox should now work
+    if VBoxManage &> /dev/null; then
+        echo "VirtualBox seems to be working"
+    else
+        echo "VBoxManage is giving non-zero exit, which is unexpected"
+        VBoxManage
+    fi
+}
+
+libvirt()
+{
+    # TODO: ~Inverse of vbox above
+}
+
 del_useless_dirs()
 {
     # Removes default dirs that I have no use for
