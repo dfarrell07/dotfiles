@@ -26,6 +26,15 @@ export PATH=/usr/local/packer:$PATH
 # Adding to end is better here, just need to find it eventually
 export PATH=$PATH:/home/daniel/.gem/ruby/gems/librarian-puppet-2.0.1/bin
 
+# Change Vagrant home dir (box storage) to be a on a large partition
+# This needs to be applied to root, since libvirt requires running as root
+# Using different dirs for root and non-root to avoid perm issues
+if [ $EUID -ne 0 ]; then
+    export VAGRANT_HOME=/home/daniel/.vagrant.d
+else
+    export VAGRANT_HOME=/home/daniel/.vagrant.d.root
+fi
+
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 export EDITOR='vim'
 export WORKON_HOME="$HOME/.virtualenvs"
