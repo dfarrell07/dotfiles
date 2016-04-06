@@ -394,6 +394,7 @@ vbox()
 libvirt()
 {
     # TODO: ~Inverse of vbox above
+    echo "Not implemented"
 }
 
 del_useless_dirs()
