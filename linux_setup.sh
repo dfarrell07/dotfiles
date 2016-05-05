@@ -330,6 +330,7 @@ install_docker()
 fedora_packages()
 {
     # Install the packages I find helpful for Fedora
+    sudo dnf install http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
     sudo dnf install -y git tmux wget vim-X11 vim ipython nmap nload mtr i3 \
                      i3status zsh scrot irssi \
                      network-manager-applet xbacklight \
@@ -339,7 +340,7 @@ fedora_packages()
                      ShellCheck libvirt libvirt-devel \
                      htop nload kernel-devel \
                      dkms rubygem-bundler koji ansible redhat-rpm-config \
-                     python-devel libcurl-devel
+                     python-devel libcurl-devel fuse-exfat
     sudo dnf groupinstall -y "C Development Tools and Libraries"
     sudo pip install --upgrade pip
     sudo pip install virtualenvwrapper tox virtualenv --upgrade
