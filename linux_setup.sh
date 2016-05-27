@@ -33,6 +33,8 @@ OPTIONS:
     -D Install and configure Docker
     -d Decrypt ssh_config.enc to dotfiles/ssh_config
     -e Replace current ssh_config.enc with newly-ecrypted ssh_config
+    -V Configure VirtualBox as Vagrant provider
+    -L Configure LibVirt as Vagrant provider
 EOF
 }
 
@@ -395,7 +397,9 @@ vbox()
 libvirt()
 {
     # TODO: ~Inverse of vbox above
-    echo "Not implemented"
+    #vagrant plugin install vagrant-libvirt
+    sudo vagrant plugin install vagrant-libvirt
+    sudo systemctl stop vboxdrv
 }
 
 del_useless_dirs()
@@ -429,7 +433,7 @@ if [ $# -eq 0 ]; then
     exit $EX_USAGE
 fi
 
-while getopts ":hcCGztivgsx3rfuHDde" opt; do
+while getopts ":hcCGztivgsx3rfuHDdeVL" opt; do
     case "$opt" in
         h)
             # Help message
@@ -503,6 +507,14 @@ while getopts ":hcCGztivgsx3rfuHDde" opt; do
         e)
             # Replace current ssh_config.enc with newly-ecrypted ssh_config
             update_ssh_config
+            ;;
+        V)
+            # Configure VirtualBox as Vagrant provider
+            vbox
+            ;;
+        L)
+            # Configure Libvirt as Vagrant provider
+            libvirt
             ;;
         *)
             # All other flags fall through to here
