@@ -35,6 +35,7 @@ OPTIONS:
     -e Replace current ssh_config.enc with newly-ecrypted ssh_config
     -V Configure VirtualBox as Vagrant provider
     -L Configure LibVirt as Vagrant provider
+    -b Backup important files
 EOF
 }
 
@@ -427,13 +428,37 @@ clone_code()
     cd $old_cwd
 }
 
+backup()
+{
+    # Backup critical files
+    # TODO: Incomplete
+    old_cwd=$PWD
+    cd $HOME
+    timestamp=$(date +%Y%m%d%H%M%S)
+
+    if [ ! -d $HOME/backup ]
+    then
+        mkdir $HOME/backup
+    fi
+
+    tar -c notes_tmp -f notes_backup_$timestamp.tar
+    tar -c .zsh_history -f zsh_history_backup_$timestamp.tar
+    #tar -c archive -f archive_backup_$timestamp.tar
+
+    mv notes_backup_$timestamp.tar $HOME/backup/
+    mv zsh_history_backup_$timestamp.tar $HOME/backup/
+    #mv archive_backup_$timestamp.tar $HOME/backup/
+
+    cd $old_cwd
+}
+
 # If executed with no options
 if [ $# -eq 0 ]; then
     usage
     exit $EX_USAGE
 fi
 
-while getopts ":hcCGztivgsx3rfuHDdeVL" opt; do
+while getopts ":hcCGztivgsx3rfuHDdeVLb" opt; do
     case "$opt" in
         h)
             # Help message
@@ -515,6 +540,10 @@ while getopts ":hcCGztivgsx3rfuHDdeVL" opt; do
         L)
             # Configure Libvirt as Vagrant provider
             libvirt
+            ;;
+        b)
+            # Backup important files
+            backup
             ;;
         *)
             # All other flags fall through to here
