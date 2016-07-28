@@ -386,6 +386,9 @@ vbox()
         sudo rmmod kvm
     fi
 
+    # Start the VBox systemd service
+    sudo systemctl start vboxdrv
+
     # Virtualbox should now work
     if VBoxManage &> /dev/null; then
         echo "VirtualBox seems to be working"
