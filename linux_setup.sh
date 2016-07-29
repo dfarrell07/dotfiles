@@ -169,6 +169,10 @@ install_vim()
     clone_dotfiles
     # Symlink vim config to proper path
     ln -s $HOME/.dotfiles/.vimrc $HOME/.vimrc
+
+    # Install Robot Framework vim plugin
+    git clone git://github.com/mfukar/robotframework-vim.git
+    cd robotframework-vim && cp -R * ~/.vim/ && cd .. && rm -rf robotframework-vim
 }
 
 install_irssi()
