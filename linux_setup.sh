@@ -321,10 +321,18 @@ EOL"
 install_docker()
 {
     # Install and configure Docker
-    curl -fsSL https://get.docker.com/ | sh
+    sudo tee /etc/yum.repos.d/docker.repo <<-'EOF'
+[dockerrepo]
+name=Docker Repository
+baseurl=https://yum.dockerproject.org/repo/main/fedora/$releasever/
+enabled=1
+gpgcheck=1
+gpgkey=https://yum.dockerproject.org/gpg
+EOF
+    sudo dnf install -y docker-engine
     sudo usermod -a -G docker $USER
+    sudo systemctl enable docker.service
     sudo systemctl start docker
-    sudo systemctl enable docker
     echo "You may need to reboot for docker perms to take effect"
     sleep 1
     echo "^^Notice this!"
@@ -366,10 +374,10 @@ vbox()
     # Configure VirtualBox virtualization
     # This is typically meant to swap VBox for libvirt
     # See: http://www.dedoimedo.com/computers/kvm-virtualbox.html
-    vbox_url="http://download.virtualbox.org/virtualbox/5.0.16/VirtualBox-5.0-5.0.16_105871_fedora22-1.x86_64.rpm"
+    vbox_url="http://download.virtualbox.org/virtualbox/5.1.2/VirtualBox-5.1-5.1.2_108956_fedora22-1.x86_64.rpm"
 
     # Install VirtualBox if it's not installed
-    if ! rpm -q VirtualBox-5.0 &> /dev/null; then
+    if ! rpm -q VirtualBox-5.1 &> /dev/null; then
         echo "Have you checked if this is the latest VBox version?"
         echo "Installing VBox from:"
         echo $vbox_url
@@ -394,20 +402,20 @@ vbox()
     sudo systemctl start vboxdrv
 
     # Virtualbox should now work
-    if VBoxManage &> /dev/null; then
-        echo "VirtualBox seems to be working"
-    else
-        echo "VBoxManage is giving non-zero exit, which is unexpected"
-        VBoxManage
-    fi
+    # VBox doesn't exit non-zero on most failures, so manually look for error
+    VBoxManage --version
 }
 
 libvirt()
 {
     # TODO: ~Inverse of vbox above
-    #vagrant plugin install vagrant-libvirt
     sudo vagrant plugin install vagrant-libvirt
     sudo systemctl stop vboxdrv
+    # TODO: Use vagrant global-status to find and destroy all VBox VMs
+    # TODO: Reboot?
+    # TODO: rmmod vboxdrv, but first things that depend on it
+    # TODO: Uninstall VirtualBox
+    # TODO: sudo setenforce 0
 }
 
 del_useless_dirs()

@@ -42,20 +42,27 @@ if [ -f /usr/bin/virtualenvwrapper.sh ]; then
     source /usr/bin/virtualenvwrapper.sh
 fi
 
+# Make ~dl resolve to ~/Downloads
 hash -d dl=~/Downloads
 
+# Aliases for quick cd
 alias -g ...='../..'
 alias -g ....='../../..'
 alias -g .....='../../../..'
 alias -g ......='../../../../..'
 alias -g .......='../../../../../..'
+
+# Aliases for network debugging
 alias ping="ping -i .2"
 alias pingg="ping www.google.com"
 alias ping8="ping 8.8.8.8"
-alias starwars="telnet towel.blinkenlights.nl"
-alias df="df -h"
-alias gdb="gdb -quiet"
 alias mtrg="mtr google.com"
+
+# Aliases for common general commands
+alias gv="gvim -vp"
+
+# Aliases for fun :)
+alias starwars="telnet towel.blinkenlights.nl"
 
 # Fix "grep: warning: GREP_OPTIONS is deprecated; please use an alias or script"
 # Something exports it when I cd into git repos, so likey git zsh plugin
