@@ -60,6 +60,15 @@ alias mtrg="mtr google.com"
 
 # Aliases for common general commands
 alias gv="gvim -vp"
+alias gi="grep -rniI --color=always"
+alias vd="vagrant destroy -f"
+alias svd="sudo vagrant destroy -f"
+alias vu="vagrant up"
+alias svu="sudo vagrant up"
+alias vs="vagrant status"
+alias svs="sudo vagrant status"
+alias v="vagrant"
+alias sv="sudo vagrant"
 
 # Aliases for fun :)
 alias starwars="telnet towel.blinkenlights.nl"
