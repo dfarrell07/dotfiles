@@ -16,3 +16,5 @@
 	username = dfarrell07
 [push]
 	default = simple
+[http]
+	sslCAInfo = /etc/pki/ca-trust/source/anchors/Eng-CA.crt

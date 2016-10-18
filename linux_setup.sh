@@ -36,6 +36,7 @@ OPTIONS:
     -V Configure VirtualBox as Vagrant provider
     -L Configure LibVirt as Vagrant provider
     -b Backup important files
+    -R Configure Red Hat CA certs
 EOF
 }
 
@@ -468,13 +469,25 @@ backup()
     cd $old_cwd
 }
 
+redhat_certs()
+{
+    # Copy RH certs to correct place in filesystem
+    # IT root cert doesn't seem to help with cloning repos
+    #sudo ln -s $HOME/.dotfiles/RH-IT-Root-CA.crt /etc/pki/ca-trust/source/anchors/RH-IT-Root-CA.crt
+    sudo ln -s $HOME/.dotfiles/Eng-CA.crt /etc/pki/ca-trust/source/anchors/Eng-CA.crt
+
+    # Configure git to trust RH certs
+    #git config --global http.sslCAInfo /etc/pki/ca-trust/source/anchors/RH-IT-Root-CA.crt
+    git config --global http.sslCAInfo /etc/pki/ca-trust/source/anchors/Eng-CA.crt
+}
+
 # If executed with no options
 if [ $# -eq 0 ]; then
     usage
     exit $EX_USAGE
 fi
 
-while getopts ":hcCGztivgsx3rfuHDdeVLb" opt; do
+while getopts ":hcCGztivgsx3rfuHDdeVLbR" opt; do
     case "$opt" in
         h)
             # Help message
@@ -560,6 +573,10 @@ while getopts ":hcCGztivgsx3rfuHDdeVLb" opt; do
         b)
             # Backup important files
             backup
+            ;;
+        R)
+            # Configure Red Hat CA certs
+            redhat_certs
             ;;
         *)
             # All other flags fall through to here
