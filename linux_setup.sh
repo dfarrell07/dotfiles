@@ -473,11 +473,15 @@ redhat_certs()
 {
     # Copy RH certs to correct place in filesystem
     # IT root cert doesn't seem to help with cloning repos
-    #sudo ln -s $HOME/.dotfiles/RH-IT-Root-CA.crt /etc/pki/ca-trust/source/anchors/RH-IT-Root-CA.crt
+    # https://password.corp.redhat.com/RH-IT-Root-CA.crt
+    # Use Eng cert for that
+    # https://password.corp.redhat.com/RH-IT-Root-CA.crt
+    # Docs for importing into GChrome
+    # http://stackoverflow.com/questions/7580508/getting-chrome-to-accept-self-signed-localhost-certificate
+    sudo ln -s $HOME/.dotfiles/RH-IT-Root-CA.crt /etc/pki/ca-trust/source/anchors/RH-IT-Root-CA.crt
     sudo ln -s $HOME/.dotfiles/Eng-CA.crt /etc/pki/ca-trust/source/anchors/Eng-CA.crt
 
-    # Configure git to trust RH certs
-    #git config --global http.sslCAInfo /etc/pki/ca-trust/source/anchors/RH-IT-Root-CA.crt
+    # Configure git to trust RH Eng cert
     git config --global http.sslCAInfo /etc/pki/ca-trust/source/anchors/Eng-CA.crt
 }
 
