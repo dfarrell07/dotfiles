@@ -356,7 +356,7 @@ fedora_packages()
                      ShellCheck libvirt libvirt-devel \
                      htop nload kernel-devel \
                      dkms rubygem-bundler koji ansible redhat-rpm-config \
-                     python-devel libcurl-devel fuse-exfat iotop
+                     python-devel libcurl-devel fuse-exfat iotop krb5-workstation
     sudo dnf groupinstall -y "C Development Tools and Libraries"
     sudo pip install --upgrade pip
     sudo pip install virtualenvwrapper tox virtualenv --upgrade
