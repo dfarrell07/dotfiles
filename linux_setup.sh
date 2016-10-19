@@ -363,8 +363,8 @@ fedora_packages()
     sudo dnf copr enable -y bstinson/centos-packager
     sudo dnf install -y centos-packager
     # Will need to install VBox and Vagrant from latest RPMs
-    # Install vagrant-libvirt, vagrant-scp, maybe vagrant-nfs_guest plugins
-    # sudo vagrant plugin install vagrant-libvirt vagrant-scp
+    # Install Vagrant plugins plugins
+    # sudo vagrant plugin install vagrant-libvirt vagrant-scp vagrant-sshfs
     # Will need to install Packer from binary zip
     # https://releases.hashicorp.com/packer/
     # unzip into /usr/local/packer
