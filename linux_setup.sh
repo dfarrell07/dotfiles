@@ -411,12 +411,13 @@ libvirt()
 {
     # TODO: ~Inverse of vbox above
     sudo vagrant plugin install vagrant-libvirt
-    sudo systemctl stop vboxdrv
     # TODO: Use vagrant global-status to find and destroy all VBox VMs
-    # TODO: Reboot?
-    # TODO: rmmod vboxdrv, but first things that depend on it
-    # TODO: Uninstall VirtualBox
-    # TODO: sudo setenforce 0
+    # NB: Do this before stop and all may magically work at that point
+    sudo systemctl stop vboxdrv
+    # Check lsmod | grep vbox, hopefully nothing. If used count is >0 and
+    # no Used By listed, you mised a VM. Reboot.
+    # TODO: Maybe uninstall VirtualBox
+    # TODO: sudo setenforce 0 # Why?
 }
 
 del_useless_dirs()
