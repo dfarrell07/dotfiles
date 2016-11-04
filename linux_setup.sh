@@ -37,6 +37,7 @@ OPTIONS:
     -L Configure LibVirt as Vagrant provider
     -b Backup important files
     -R Configure Red Hat CA certs
+    -o Add ODL RPM repo configs
 EOF
 }
 
@@ -430,8 +431,7 @@ clone_code()
 {
     # Clone useful code repos
     install_git
-    old_cwd=$PWD
-    cd $HOME
+    pushd $HOME
     git clone ssh://dfarrell07@git.opendaylight.org:29418/integration/packaging.git
     git clone ssh://dfarrell07@git.opendaylight.org:29418/integration/test.git
     git clone ssh://dfarrell07@git.opendaylight.org:29418/releng/builder.git
@@ -443,7 +443,22 @@ clone_code()
     git clone git@github.com:dfarrell07/ansible-opendaylight.git
     git clone git@github.com:dfarrell07/wcbench.git
     git clone git@github.com:IEEERobotics/bot.git
-    cd $old_cwd
+    popd
+}
+
+odl_repos()
+{
+    # Install ODL RPM repo configs
+    sudo curl -o /etc/yum.repos.d/opendaylight-34-release.repo "https://git.opendaylight.org/gerrit/gitweb?p=integration/packaging.git;a=blob_plain;f=rpm/example_repo_configs/opendaylight-34-release.repo;hb=refs/heads/master"
+    sudo curl -o /etc/yum.repos.d/opendaylight-40-release.repo "https://git.opendaylight.org/gerrit/gitweb?p=integration/packaging.git;a=blob_plain;f=rpm/example_repo_configs/opendaylight-40-release.repo;hb=refs/heads/master"
+    sudo curl -o /etc/yum.repos.d/opendaylight-41-release.repo "https://git.opendaylight.org/gerrit/gitweb?p=integration/packaging.git;a=blob_plain;f=rpm/example_repo_configs/opendaylight-41-release.repo;hb=refs/heads/master"
+    sudo curl -o /etc/yum.repos.d/opendaylight-42-release.repo "https://git.opendaylight.org/gerrit/gitweb?p=integration/packaging.git;a=blob_plain;f=rpm/example_repo_configs/opendaylight-42-release.repo;hb=refs/heads/master"
+    sudo curl -o /etc/yum.repos.d/opendaylight-43-release.repo "https://git.opendaylight.org/gerrit/gitweb?p=integration/packaging.git;a=blob_plain;f=rpm/example_repo_configs/opendaylight-43-release.repo;hb=refs/heads/master"
+    sudo curl -o /etc/yum.repos.d/opendaylight-44-release.repo "https://git.opendaylight.org/gerrit/gitweb?p=integration/packaging.git;a=blob_plain;f=rpm/example_repo_configs/opendaylight-44-release.repo;hb=refs/heads/master"
+    sudo curl -o /etc/yum.repos.d/opendaylight-50-release.repo "https://git.opendaylight.org/gerrit/gitweb?p=integration/packaging.git;a=blob_plain;f=rpm/example_repo_configs/opendaylight-50-release.repo;hb=refs/heads/master"
+    sudo curl -o /etc/yum.repos.d/opendaylight-51-release.repo "https://git.opendaylight.org/gerrit/gitweb?p=integration/packaging.git;a=blob_plain;f=rpm/example_repo_configs/opendaylight-51-release.repo;hb=refs/heads/master"
+    echo "To show available ODL versions:"
+    echo "dnf list --showduplicates opendaylight"
 }
 
 backup()
@@ -492,7 +507,7 @@ if [ $# -eq 0 ]; then
     exit $EX_USAGE
 fi
 
-while getopts ":hcCGztivgsx3rfuHDdeVLbR" opt; do
+while getopts ":hcCGztivgsx3rfuHDdeVLbRo" opt; do
     case "$opt" in
         h)
             # Help message
@@ -582,6 +597,10 @@ while getopts ":hcCGztivgsx3rfuHDdeVLbR" opt; do
         R)
             # Configure Red Hat CA certs
             redhat_certs
+            ;;
+        o)
+            # Add ODL RPM repo configs
+            odl_repos
             ;;
         *)
             # All other flags fall through to here
