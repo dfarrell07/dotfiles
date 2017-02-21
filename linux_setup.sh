@@ -377,7 +377,7 @@ vbox()
     # Configure VirtualBox virtualization
     # This is typically meant to swap VBox for libvirt
     # See: http://www.dedoimedo.com/computers/kvm-virtualbox.html
-    vbox_url="http://download.virtualbox.org/virtualbox/5.1.2/VirtualBox-5.1-5.1.2_108956_fedora22-1.x86_64.rpm"
+    vbox_url="http://download.virtualbox.org/virtualbox/5.1.14/VirtualBox-5.1-5.1.14_112924_fedora24-1.x86_64.rpm"
 
     # Install VirtualBox if it's not installed
     if ! rpm -q VirtualBox-5.1 &> /dev/null; then
