@@ -60,7 +60,7 @@ alias mtrg="mtr google.com"
 
 # Aliases for common general commands
 alias gv="gvim -vp"
-alias gi="grep -rniI --color=always"
+alias gi="grep -rniI --color=always --exclude-dir=.tox"
 alias vd="vagrant destroy -f"
 alias svd="sudo vagrant destroy -f"
 alias vu="vagrant up"
@@ -76,3 +76,6 @@ alias starwars="telnet towel.blinkenlights.nl"
 # Fix "grep: warning: GREP_OPTIONS is deprecated; please use an alias or script"
 # Something exports it when I cd into git repos, so likey git zsh plugin
 unset GREP_OPTIONS
+
+# added by travis gem
+[ -f /home/daniel/.travis/travis.sh ] && source /home/daniel/.travis/travis.sh
