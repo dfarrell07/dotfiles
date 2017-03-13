@@ -69,6 +69,7 @@ alias vs="vagrant status"
 alias svs="sudo vagrant status"
 alias v="vagrant"
 alias sv="sudo vagrant"
+alias fixd="$HOME/.dotfiles/fix_displays.sh"
 
 # Aliases for fun :)
 alias starwars="telnet towel.blinkenlights.nl"
