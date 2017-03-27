@@ -11,7 +11,7 @@
 [help]
 	autocorrect = 1
 [diff]
-    tool = meld
+	tool = meld
 [gitreview]
 	username = dfarrell07
 [push]
