@@ -70,6 +70,7 @@ alias svs="sudo vagrant status"
 alias v="vagrant"
 alias sv="sudo vagrant"
 alias fixd="$HOME/.dotfiles/fix_displays.sh"
+alias keyb='echo -e "connect 20:73:16:10:1C:0F" | bluetoothctl'
 
 # Aliases for fun :)
 alias starwars="telnet towel.blinkenlights.nl"
