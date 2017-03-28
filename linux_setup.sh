@@ -466,24 +466,27 @@ backup()
 {
     # Backup critical files
     # TODO: Incomplete
-    old_cwd=$PWD
-    cd $HOME
+    pushd $HOME
     timestamp=$(date +%Y%m%d%H%M%S)
 
-    if [ ! -d $HOME/backup ]
+    if [ ! -d backup ]
     then
-        mkdir $HOME/backup
+        mkdir backup
     fi
 
+    if [ -d notes_tmp ]
+    then
+        rm -r notes_tmp
+    fi
+
+    cp -r notes notes_tmp
     tar -c notes_tmp -f notes_backup_$timestamp.tar
     tar -c .zsh_history -f zsh_history_backup_$timestamp.tar
-    #tar -c archive -f archive_backup_$timestamp.tar
 
     mv notes_backup_$timestamp.tar $HOME/backup/
     mv zsh_history_backup_$timestamp.tar $HOME/backup/
-    #mv archive_backup_$timestamp.tar $HOME/backup/
 
-    cd $old_cwd
+    popd
 }
 
 redhat_certs()
