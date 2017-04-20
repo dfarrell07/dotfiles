@@ -346,6 +346,9 @@ EOF
 
 fedora_packages()
 {
+    # Start by doing an update
+    sudo dnf update -y
+
     # Install the packages I find helpful for Fedora
     sudo dnf install http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
     sudo dnf install -y git tmux wget vim-X11 vim ipython nmap nload mtr i3 \
@@ -354,11 +357,11 @@ fedora_packages()
                      python-pip openssl openssl-devel zlib-devel ncurses-devel \
                      readline-devel transmission linphone python-pep8 gcc \
                      git-review python-requests ruby-devel gcc-c++ \
-                     ShellCheck libvirt libvirt-devel \
+                     ShellCheck libvirt libvirt-devel vagrant-libvirt
                      htop nload kernel-devel \
                      dkms rubygem-bundler koji ansible redhat-rpm-config \
                      python-devel libcurl-devel fuse-exfat iotop \
-                     krb5-workstation meld
+                     krb5-workstation meld maven
     sudo dnf groupinstall -y "C Development Tools and Libraries"
     sudo pip install --upgrade pip
     sudo pip install virtualenvwrapper tox virtualenv --upgrade
@@ -366,7 +369,7 @@ fedora_packages()
     sudo dnf install -y centos-packager
     # Will need to install VBox and Vagrant from latest RPMs
     # Install Vagrant plugins plugins
-    # sudo vagrant plugin install vagrant-libvirt vagrant-scp vagrant-sshfs
+    # vagrant plugin install vagrant-libvirt vagrant-scp vagrant-sshfs
     # Will need to install Packer from binary zip
     # https://releases.hashicorp.com/packer/
     # unzip into /usr/local/packer
