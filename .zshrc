@@ -71,6 +71,7 @@ alias v="vagrant"
 alias sv="sudo vagrant"
 alias fixd="$HOME/.dotfiles/fix_displays.sh"
 alias keyb='echo -e "connect 20:73:16:10:1C:0F" | bluetoothctl'
+alias mx='echo -e "connect FE:BF:2C:BE:A7:BB" | bluetoothctl'
 
 # Aliases for fun :)
 alias starwars="telnet towel.blinkenlights.nl"
@@ -81,3 +82,6 @@ unset GREP_OPTIONS
 
 # added by travis gem
 [ -f /home/daniel/.travis/travis.sh ] && source /home/daniel/.travis/travis.sh
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"

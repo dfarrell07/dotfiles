@@ -361,7 +361,7 @@ fedora_packages()
                      htop nload kernel-devel \
                      dkms rubygem-bundler koji ansible redhat-rpm-config \
                      python-devel libcurl-devel fuse-exfat iotop \
-                     krb5-workstation meld maven feh
+                     krb5-workstation meld maven feh exfat-utils
     sudo dnf groupinstall -y "C Development Tools and Libraries"
     sudo pip install --upgrade pip
     sudo pip install virtualenvwrapper tox virtualenv --upgrade
@@ -380,7 +380,7 @@ vbox()
     # Configure VirtualBox virtualization
     # This is typically meant to swap VBox for libvirt
     # See: http://www.dedoimedo.com/computers/kvm-virtualbox.html
-    vbox_url="http://download.virtualbox.org/virtualbox/5.1.14/VirtualBox-5.1-5.1.14_112924_fedora24-1.x86_64.rpm"
+    vbox_url="http://download.virtualbox.org/virtualbox/5.1.22/VirtualBox-5.1-5.1.22_115126_fedora25-1.x86_64.rpm"
 
     # Install VirtualBox if it's not installed
     if ! rpm -q VirtualBox-5.1 &> /dev/null; then

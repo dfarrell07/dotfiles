@@ -9,3 +9,5 @@ xrdb ~/.Xdefaults
 bluetoothctl << EOF
 connect 20:73:16:10:1C:0F
 EOF
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
