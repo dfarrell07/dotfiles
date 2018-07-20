@@ -51,3 +51,12 @@ map <F5> :buffers<CR>:buffer<Space>
 " Switch to a given tab with 4gt, for tab 4
 "set guitablabel=\[%N\]\ %t\ %M
 set guitablabel=%t
+
+" Wrap text at 79 chars
+set textwidth=79
+
+set formatoptions=n
+
+" Preserve indentation when wraping text
+set breakindent
+set showbreak=\ \\_  
