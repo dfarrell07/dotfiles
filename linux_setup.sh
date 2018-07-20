@@ -372,7 +372,7 @@ fedora_packages()
     # vagrant plugin install vagrant-libvirt vagrant-scp vagrant-sshfs
     # Will need to install Packer from binary zip
     # https://releases.hashicorp.com/packer/
-    # unzip into /usr/local/packer
+    # unzip into /usr/local/bin
 }
 
 vbox()
