@@ -437,15 +437,15 @@ clone_code()
     install_git
     pushd $HOME
     git clone ssh://dfarrell07@git.opendaylight.org:29418/integration/packaging.git
+    git clone ssh://dfarrell07@git.opendaylight.org:29418/integration/packaging/puppet-opendaylight.git
+    git clone ssh://dfarrell07@git.opendaylight.org:29418/integration/packaging/ansible-opendaylight.git
     git clone ssh://dfarrell07@git.opendaylight.org:29418/integration/test.git
+    git clone ssh://dfarrell07@git.opendaylight.org:29418/docs.git
     git clone ssh://dfarrell07@git.opendaylight.org:29418/releng/builder.git
     git clone ssh://dfarrell07@gerrit.opnfv.org:29418/releng.git opnfv-releng
     git clone ssh://dfarrell07@gerrit.opnfv.org:29418/cperf.git cperf
     git clone ssh://dfarrell07@gerrit.opnfv.org:29418/functest.git
-    git clone git@github.com:dfarrell07/puppet-opendaylight.git
     git clone git@github.com:dfarrell07/vagrant-opendaylight.git
-    git clone git@github.com:dfarrell07/ansible-opendaylight.git
-    git clone git@github.com:dfarrell07/wcbench.git
     git clone git@github.com:IEEERobotics/bot.git
     popd
 }
