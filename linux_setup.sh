@@ -142,7 +142,7 @@ install_zsh()
     git clone https://github.com/robbyrussell/oh-my-zsh $HOME/.oh-my-zsh
 
     # Set ZSH as my default shell
-    chsh -s `command -v zsh`
+    sudo chsh -s `command -v zsh`
 }
 
 install_tmux()
@@ -436,6 +436,8 @@ clone_code()
     # Clone useful code repos
     install_git
     pushd $HOME
+    # Incase there isn't a pushd, quick backup hack
+    cd $HOME
     git clone ssh://dfarrell07@git.opendaylight.org:29418/integration/packaging.git
     git clone ssh://dfarrell07@git.opendaylight.org:29418/integration/packaging/puppet-opendaylight.git
     git clone ssh://dfarrell07@git.opendaylight.org:29418/integration/packaging/ansible-opendaylight.git
