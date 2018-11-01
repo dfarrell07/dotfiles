@@ -22,6 +22,11 @@ source $ZSH/oh-my-zsh.sh
 # https://www.packer.io/docs/installation.html
 export PATH=/usr/local/packer:$PATH
 
+# Required for openstack CLI
+# Installing with pip install python-openstackclient fails with perms
+# Adding --user installs to .loca/bin, which isn't in default path
+export PATH=$HOME/.local/bin:$PATH
+
 # Required for lib-puppet (maybe other gems?)
 # Adding to end is better here, just need to find it eventually
 export PATH=$PATH:/home/daniel/.gem/ruby/gems/librarian-puppet-2.0.1/bin
