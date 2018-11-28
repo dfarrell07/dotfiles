@@ -447,6 +447,14 @@ clone_code()
     git clone ssh://dfarrell07@gerrit.opnfv.org:29418/releng.git opnfv-releng
     git clone ssh://dfarrell07@gerrit.opnfv.org:29418/cperf.git cperf
     git clone ssh://dfarrell07@gerrit.opnfv.org:29418/functest.git
+    git clone https://git.openstack.org/openstack-infra/tripleo-ci
+    git clone https://git.openstack.org/openstack/puppet-neutron
+    git clone https://git.openstack.org/openstack/tripleo-quickstart-extras
+    git clone https://git.openstack.org/openstack/tripleo-quickstart
+    git clone https://git.openstack.org/openstack/browbeat
+    git clone https://git.openstack.org/openstack/tripleo-upgrade
+    git clone https://git.openstack.org/openstack/puppet-tripleo
+    git clone https://git.openstack.org/openstack/tripleo-ha-utils
     git clone git@github.com:dfarrell07/vagrant-opendaylight.git
     git clone git@github.com:IEEERobotics/bot.git
     popd
