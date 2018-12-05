@@ -444,6 +444,12 @@ clone_code()
     git clone ssh://dfarrell07@git.opendaylight.org:29418/integration/test.git
     git clone ssh://dfarrell07@git.opendaylight.org:29418/docs.git
     git clone ssh://dfarrell07@git.opendaylight.org:29418/releng/builder.git
+    git clone ssh://dfarrell07@git.opendaylight.org:29418/genius.git
+    git clone ssh://dfarrell07@git.opendaylight.org:29418/serviceutils.git
+    git clone ssh://dfarrell07@git.opendaylight.org:29418/infrautils.git
+    git clone ssh://dfarrell07@git.opendaylight.org:29418/netvirt.git
+    git clone ssh://dfarrell07@git.opendaylight.org:29418/odlparent.git
+    git clone ssh://dfarrell07@git.opendaylight.org:29418/mdsal.git
     git clone ssh://dfarrell07@gerrit.opnfv.org:29418/releng.git opnfv-releng
     git clone ssh://dfarrell07@gerrit.opnfv.org:29418/cperf.git cperf
     git clone ssh://dfarrell07@gerrit.opnfv.org:29418/functest.git
@@ -455,6 +461,7 @@ clone_code()
     git clone https://git.openstack.org/openstack/tripleo-upgrade
     git clone https://git.openstack.org/openstack/puppet-tripleo
     git clone https://git.openstack.org/openstack/tripleo-ha-utils
+    git clone https://git.openstack.org/openstack/tripleo-heat-templates
     git clone git@github.com:dfarrell07/vagrant-opendaylight.git
     git clone git@github.com:IEEERobotics/bot.git
     popd
