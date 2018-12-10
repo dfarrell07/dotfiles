@@ -464,6 +464,7 @@ clone_code()
     git clone https://git.openstack.org/openstack/tripleo-heat-templates
     git clone git@github.com:dfarrell07/vagrant-opendaylight.git
     git clone git@github.com:IEEERobotics/bot.git
+    git clone https://review.rdoproject.org/r/rdoinfo
     popd
 }
 
