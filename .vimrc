@@ -60,3 +60,6 @@ set formatoptions=n
 " Preserve indentation when wraping text
 set breakindent
 set showbreak=\ \\_  
+
+" Disable foldign (say, of rst sections) by default
+set nofoldenable
