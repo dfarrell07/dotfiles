@@ -14,6 +14,8 @@ chatnets = { RedHat = { type = "IRC"; }; };
 channels = (
   { name = "#devel"; chatnet = "RedHat"; autojoin = "yes"; },
   { name = "#rh-sdn-dev"; chatnet = "RedHat"; autojoin = "yes"; }
+  { name = "#k8s-federation"; chatnet = "RedHat"; autojoin = "yes"; }
+  { name = "#rhos-dev"; chatnet = "RedHat"; autojoin = "yes"; }
   { name = "#projectncl"; chatnet = "RedHat"; autojoin = "yes"; }
 );
 
