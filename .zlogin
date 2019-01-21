@@ -3,8 +3,9 @@ xset s 32767
 xset -dpms
 
 # Set color scheme
-# Disable by default, not desired on all systems
-# xrdb ~/.Xdefaults
+# NB: Must uncomment this for custom shell colors
+# NB: May not be desired on all systems
+xrdb ~/.Xdefaults
 
 # Connect to my bluetooth keyboard
 # Disable by default, not desired on all systems
