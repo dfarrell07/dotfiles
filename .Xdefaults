@@ -1,4 +1,4 @@
-urxvt.font:             xft: Dejavu Sans Mono:autohint=true:antialias=true:size=10
+urxvt.font:             xft: Dejavu Sans Mono:autohint=true:antialias=true:size=11
 urxvt.scrollBar:        false
 
 ! Solarized color scheme for shell readability

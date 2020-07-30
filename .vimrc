@@ -2,7 +2,9 @@
 set history=5000
  
 " Use spaces vs hard tab
-set ts=2 expandtab
+"set ts=2 expandtab
+" Use hard tab vs spaces
+set ts=2 noexpandtab
  
 " 1 tab == 2 spaces
 set shiftwidth=2
@@ -53,7 +55,9 @@ map <F5> :buffers<CR>:buffer<Space>
 set guitablabel=%t
 
 " Wrap text at 79 chars
-set textwidth=79
+"set textwidth=79
+" Wrap text at 140 chars
+set textwidth=140
 
 set formatoptions=n
 
