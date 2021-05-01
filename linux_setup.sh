@@ -334,21 +334,21 @@ fedora_packages()
     sudo dnf update -y
 
     # Install the packages I find helpful for Fedora
-    sudo dnf install http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-    sudo dnf install -y git tmux wget vim-X11 vim ipython nmap nload mtr i3 \
-                     i3status zsh scrot irssi \
+    sudo dnf install -y http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+    sudo dnf install -y vim-X11 vim ipython nmap nload i3 \
+                     i3status zsh irssi \
                      network-manager-applet xbacklight \
-                     python-pip openssl openssl-devel zlib-devel ncurses-devel \
-                     readline-devel transmission linphone python-pep8 gcc \
-                     git-review python-requests ruby-devel gcc-c++ \
-                     ShellCheck libvirt libvirt-devel vagrant-libvirt
+                     openssl openssl-devel zlib-devel ncurses-devel \
+                     readline-devel transmission linphone \
+                     git-review ruby-devel gcc-c++ \
+                     ShellCheck libvirt libvirt-devel vagrant-libvirt \
                      htop nload kernel-devel \
                      dkms rubygem-bundler koji ansible redhat-rpm-config \
                      python-devel libcurl-devel fuse-exfat iotop \
                      krb5-workstation meld maven feh exfat-utils
     sudo dnf groupinstall -y "C Development Tools and Libraries"
-    sudo pip install --upgrade pip
-    sudo pip install virtualenvwrapper tox virtualenv --upgrade
+    pip install --upgrade pip
+    pip install virtualenvwrapper tox virtualenv --upgrade
 }
 
 del_useless_dirs()
