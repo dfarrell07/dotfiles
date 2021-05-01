@@ -142,6 +142,9 @@ install_zsh()
     git clone https://github.com/robbyrussell/oh-my-zsh $HOME/.oh-my-zsh
 
     # Set ZSH as my default shell
+    if ! command -v chsh &> /dev/null; then
+        sudo dnf install -y util-linux-user
+    fi
     sudo chsh -s `command -v zsh`
 }
 
@@ -296,28 +299,9 @@ setup_root()
     # Apply ZSH, vim, git and tmux config to root
     # TODO: Give root a different ZSH prompt
     clone_dotfiles
-    sudo ln -s $HOME/.dotfiles/.zshrc $ROOT_HOME/.zshrc
-    sudo ln -s $HOME/.oh-my-zsh $ROOT_HOME/.oh-my-zsh
-    sudo chsh -s `command -v zsh`
-
-    # Create additional symlinks to give root similar config
     sudo ln -s $HOME/.dotfiles/.vimrc $ROOT_HOME/.vimrc
     sudo ln -s $HOME/.dotfiles/.gitconfig $ROOT_HOME/.gitconfig
     sudo ln -s $HOME/.dotfiles/.tmux.conf $ROOT_HOME/.tmux.conf
-}
-
-install_chrome()
-{
-    # Add Google Chrome repo to yum's sources
-    sudo bash -c "cat >/etc/yum.repos.d/google-chrome.repo <<EOL
-[google-chrome]
-name=google-chrome - 64-bit
-baseurl=http://dl.google.com/linux/chrome/rpm/stable/x86_64
-enabled=1
-gpgcheck=1
-gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub
-EOL"
-    sudo dnf install -y google-chrome-stable
 }
 
 install_docker()
@@ -365,122 +349,12 @@ fedora_packages()
     sudo dnf groupinstall -y "C Development Tools and Libraries"
     sudo pip install --upgrade pip
     sudo pip install virtualenvwrapper tox virtualenv --upgrade
-    sudo dnf copr enable -y bstinson/centos-packager
-    sudo dnf install -y centos-packager
-    # Will need to install VBox and Vagrant from latest RPMs
-    # Install Vagrant plugins plugins
-    # vagrant plugin install vagrant-libvirt vagrant-scp vagrant-sshfs
-    # Will need to install Packer from binary zip
-    # https://releases.hashicorp.com/packer/
-    # unzip into /usr/local/bin
-}
-
-vbox()
-{
-    # Configure VirtualBox virtualization
-    # This is typically meant to swap VBox for libvirt
-    # See: http://www.dedoimedo.com/computers/kvm-virtualbox.html
-    vbox_url="http://download.virtualbox.org/virtualbox/5.1.22/VirtualBox-5.1-5.1.22_115126_fedora25-1.x86_64.rpm"
-
-    # Install VirtualBox if it's not installed
-    if ! rpm -q VirtualBox-5.1 &> /dev/null; then
-        echo "Have you checked if this is the latest VBox version?"
-        echo "Installing VBox from:"
-        echo $vbox_url
-        echo "3Notice this^^"
-        sleep 1
-        echo "2Notice this^^"
-        sleep 1
-        echo "1Notice this^^"
-        sleep 1
-        sudo dnf install -y $vbox_url
-    fi
-
-    # Unload the KVM kmods. This shouldn't require a reboot.
-    if lsmod | grep kvm &> /dev/null; then
-        echo "Unloading kvm_intel and kvm kernel modules"
-        echo "This will fail if any libvirt VM is running"
-        sudo rmmod kvm_intel
-        sudo rmmod kvm
-    fi
-
-    # Start the VBox systemd service
-    sudo systemctl start vboxdrv
-
-    # Virtualbox should now work
-    # VBox doesn't exit non-zero on most failures, so manually look for error
-    VBoxManage --version
-}
-
-libvirt()
-{
-    # TODO: ~Inverse of vbox above
-    sudo vagrant plugin install vagrant-libvirt
-    # TODO: Use vagrant global-status to find and destroy all VBox VMs
-    # NB: Do this before stop and all may magically work at that point
-    sudo systemctl stop vboxdrv
-    # Check lsmod | grep vbox, hopefully nothing. If used count is >0 and
-    # no Used By listed, you mised a VM. Reboot.
-    # TODO: Maybe uninstall VirtualBox
-    # TODO: sudo setenforce 0 # Why?
 }
 
 del_useless_dirs()
 {
     # Removes default dirs that I have no use for
     rm -rf ~/Videos ~/Templates ~/Public ~/Music ~/Desktop
-}
-
-clone_code()
-{
-    # Clone useful code repos
-    install_git
-    pushd $HOME
-    # Incase there isn't a pushd, quick backup hack
-    cd $HOME
-    git clone ssh://dfarrell07@git.opendaylight.org:29418/integration/packaging.git
-    git clone ssh://dfarrell07@git.opendaylight.org:29418/integration/packaging/puppet-opendaylight.git
-    git clone ssh://dfarrell07@git.opendaylight.org:29418/integration/packaging/ansible-opendaylight.git
-    git clone ssh://dfarrell07@git.opendaylight.org:29418/integration/test.git
-    git clone ssh://dfarrell07@git.opendaylight.org:29418/docs.git
-    git clone ssh://dfarrell07@git.opendaylight.org:29418/releng/builder.git
-    git clone ssh://dfarrell07@git.opendaylight.org:29418/genius.git
-    git clone ssh://dfarrell07@git.opendaylight.org:29418/serviceutils.git
-    git clone ssh://dfarrell07@git.opendaylight.org:29418/infrautils.git
-    git clone ssh://dfarrell07@git.opendaylight.org:29418/netvirt.git
-    git clone ssh://dfarrell07@git.opendaylight.org:29418/odlparent.git
-    git clone ssh://dfarrell07@git.opendaylight.org:29418/mdsal.git
-    git clone ssh://dfarrell07@gerrit.opnfv.org:29418/releng.git opnfv-releng
-    git clone ssh://dfarrell07@gerrit.opnfv.org:29418/cperf.git cperf
-    git clone ssh://dfarrell07@gerrit.opnfv.org:29418/functest.git
-    git clone https://git.openstack.org/openstack-infra/tripleo-ci
-    git clone https://git.openstack.org/openstack/puppet-neutron
-    git clone https://git.openstack.org/openstack/tripleo-quickstart-extras
-    git clone https://git.openstack.org/openstack/tripleo-quickstart
-    git clone https://git.openstack.org/openstack/browbeat
-    git clone https://git.openstack.org/openstack/tripleo-upgrade
-    git clone https://git.openstack.org/openstack/puppet-tripleo
-    git clone https://git.openstack.org/openstack/tripleo-ha-utils
-    git clone https://git.openstack.org/openstack/tripleo-heat-templates
-    git clone git@github.com:dfarrell07/vagrant-opendaylight.git
-    git clone git@github.com:IEEERobotics/bot.git
-    git clone https://review.rdoproject.org/r/rdoinfo
-    popd
-}
-
-odl_repos()
-{
-    # Install ODL RPM repo configs
-    sudo curl -o /etc/yum.repos.d/opendaylight-34-release.repo "https://git.opendaylight.org/gerrit/gitweb?p=integration/packaging.git;a=blob_plain;f=rpm/example_repo_configs/opendaylight-34-release.repo;hb=refs/heads/master"
-    sudo curl -o /etc/yum.repos.d/opendaylight-40-release.repo "https://git.opendaylight.org/gerrit/gitweb?p=integration/packaging.git;a=blob_plain;f=rpm/example_repo_configs/opendaylight-40-release.repo;hb=refs/heads/master"
-    sudo curl -o /etc/yum.repos.d/opendaylight-41-release.repo "https://git.opendaylight.org/gerrit/gitweb?p=integration/packaging.git;a=blob_plain;f=rpm/example_repo_configs/opendaylight-41-release.repo;hb=refs/heads/master"
-    sudo curl -o /etc/yum.repos.d/opendaylight-42-release.repo "https://git.opendaylight.org/gerrit/gitweb?p=integration/packaging.git;a=blob_plain;f=rpm/example_repo_configs/opendaylight-42-release.repo;hb=refs/heads/master"
-    sudo curl -o /etc/yum.repos.d/opendaylight-43-release.repo "https://git.opendaylight.org/gerrit/gitweb?p=integration/packaging.git;a=blob_plain;f=rpm/example_repo_configs/opendaylight-43-release.repo;hb=refs/heads/master"
-    sudo curl -o /etc/yum.repos.d/opendaylight-44-release.repo "https://git.opendaylight.org/gerrit/gitweb?p=integration/packaging.git;a=blob_plain;f=rpm/example_repo_configs/opendaylight-44-release.repo;hb=refs/heads/master"
-    sudo curl -o /etc/yum.repos.d/opendaylight-50-release.repo "https://git.opendaylight.org/gerrit/gitweb?p=integration/packaging.git;a=blob_plain;f=rpm/example_repo_configs/opendaylight-50-release.repo;hb=refs/heads/master"
-    sudo curl -o /etc/yum.repos.d/opendaylight-51-release.repo "https://git.opendaylight.org/gerrit/gitweb?p=integration/packaging.git;a=blob_plain;f=rpm/example_repo_configs/opendaylight-51-release.repo;hb=refs/heads/master"
-    echo "To show available ODL versions:"
-    echo "dnf list --showduplicates opendaylight"
 }
 
 backup()
@@ -497,7 +371,7 @@ backup()
 
     if [ -d notes_tmp ]
     then
-        rm -r notes_tmp
+        rm -rf notes_tmp
     fi
 
     cp -r notes notes_tmp
