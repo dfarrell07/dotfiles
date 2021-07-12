@@ -72,6 +72,26 @@ decrypt_ssh_config()
     chmod 600 $HOME/.dotfiles/ssh_config
 }
 
+update_ssh_key()
+{
+    # Support for replacing encrypted SSH key with an update
+    # Warning: This will delete the current SSH key!
+    echo "Replacing id_rsa_nopass.enc with newly-encrypted version of id_rsa_nopass"
+
+    if [ ! -f $HOME/.dotfiles/id_rsa_nopass ]; then
+        echo "ERROR: $HOME/.dotfiles/id_rsa_nopass not found" >&2
+        return $EX_ERR
+    fi
+
+    echo "Deleting $HOME/.dotfiles/id_rsa_nopass.enc in 5 seconds! (ctrl+c to kill)"
+    sleep 5
+    rm $HOME/.dotfiles/id_rsa_nopass.enc
+
+    echo "This password will be used to encrypt id_rsa_nopass with aes-256-cbc"
+    openssl aes-256-cbc -e -in $HOME/.dotfiles/id_rsa_nopass \
+        -out $HOME/.dotfiles/id_rsa_nopass.enc
+}
+
 update_ssh_config()
 {
     # Support for replacing ssh_config.enc with an update from ssh_config
@@ -406,7 +426,7 @@ if [ $# -eq 0 ]; then
     exit $EX_USAGE
 fi
 
-while getopts ":hcCGztivgsx3rfuHDdeVLbRo" opt; do
+while getopts ":hcCGztivgsx3rfuHDdekVLbRo" opt; do
     case "$opt" in
         h)
             # Help message
@@ -480,6 +500,10 @@ while getopts ":hcCGztivgsx3rfuHDdeVLbRo" opt; do
         e)
             # Replace current ssh_config.enc with newly-ecrypted ssh_config
             update_ssh_config
+            ;;
+        k)
+            # Replace current encrypted SSH key with newly-encrypted version
+            update_ssh_key
             ;;
         V)
             # Configure VirtualBox as Vagrant provider
