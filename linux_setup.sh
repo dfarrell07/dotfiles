@@ -420,6 +420,89 @@ redhat_certs()
     git config --global http.sslCAInfo /etc/pki/ca-trust/source/anchors/Eng-CA.crt
 }
 
+
+clone_code()
+{
+		mkdir -p $HOME/go/src
+		cd $HOME/go/src
+
+		mkdir submariner-io
+		pushd submariner-io
+
+		git clone git@github.com:submariner-io/submariner.git
+		pushd submariner
+		git remote add dfarrell_subm git@github.com:dfarrell07/submariner.git
+		popd
+
+		git clone git@github.com:submariner-io/submariner-operator.git
+		pushd submariner-operator
+		git remote add dfarrell_op git@github.com:dfarrell07/submariner-operator.git
+		popd
+
+		git clone git@github.com:submariner-io/shipyard.git
+		pushd shipyard
+		git remote add dfarrell_sy git@github.com:dfarrell07/shipyard.git
+		popd
+
+		git clone git@github.com:submariner-io/admiral.git
+		pushd admiral
+		git remote add dfarrell_ad git@github.com:dfarrell07/admiral.git
+		popd
+
+		git clone git@github.com:submariner-io/lighthouse.git
+		pushd lighthouse
+		git remote add dfarrell_lh git@github.com:dfarrell07/lighthouse.git
+		popd
+
+		git clone git@github.com:submariner-io/submariner-website.git
+		pushd submariner-website
+		git remote add dfarrell_web git@github.com:dfarrell07/submariner-website.git
+		popd
+
+		git clone git@github.com:submariner-io/submariner-charts.git
+		pushd
+		git remote add dfarrell_helm git@github.com:dfarrell07/submariner-charts.git
+		popd
+
+		git clone git@github.com:submariner-io/enhancements.git
+		pushd enhancements
+		git remote add dfarrell_enh git@github.com:dfarrell07/enhancements.git
+		popd
+
+		git clone git@github.com:submariner-io/releases.git
+		pushd releases
+		git remote add dfarrell_rel git@github.com:dfarrell07/releases.git
+		popd
+
+		git clone git@github.com:submariner-io/get.submariner.io.git
+		pushd get.submariner.io
+		git remote add dfarrell_get git@github.com:dfarrell07/get.submariner.io.git
+		popd
+
+		git clone git@github.com:submariner-io/coastguard.git
+		pushd coastguard
+		git remote add dfarrell_cg git@github.com:dfarrell07/coastguard.git
+		popd
+
+		git clone git@github.com:submariner-io/cloud-prepare.git
+		pushd cloud-prepare
+		git remote add dfarrell_cp git@github.com:dfarrell07/cloud-prepare.git
+		popd
+
+		popd
+
+		cd $HOME/go/src
+		mkdir open-cluster-management
+		pushd open-cluster-management
+
+		git clone git@github.com:open-cluster-management/submariner-addon.git
+		pushd submariner-addon
+		git remote add dfarrell_saddo git@github.com:dfarrell07/submariner-addon.git
+		popd
+
+		popd
+}
+
 # If executed with no options
 if [ $# -eq 0 ]; then
     usage
