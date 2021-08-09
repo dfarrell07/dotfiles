@@ -460,7 +460,7 @@ clone_code()
 		popd
 
 		git clone git@github.com:submariner-io/submariner-charts.git
-		pushd
+		pushd submariner-charts
 		git remote add dfarrell_helm git@github.com:dfarrell07/submariner-charts.git
 		popd
 
